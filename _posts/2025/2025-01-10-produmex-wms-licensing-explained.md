@@ -2,7 +2,7 @@
 title: Produmex WMS Licensing explained
 date: 2025-01-09 09:51:01 +0010
 categories: [Produmex WMS, Administration]
-description: Explaining how Produmex WMS Licensing works, and what you'll need to know to administer your WMS licenses
+description: How Produmex WMS Licensing works, and what you'll need to know to administer your WMS licenses
 tags: [produmex, licensing, wms]
 toc: true
 image:
@@ -78,9 +78,9 @@ After a restart of the Licensing Configurator tool, you'll be able to manage use
 
 > **Simultaneous database access**
 > 
-> Although the Produmex licensing model is database-agnostic, the total license count is not. If a user appears in the licensed users list, they can only use PMX in **one database at a time**.
+> Although the Produmex licensing model is database-agnostic, the total license count in use is counted across all databases. If a user appears once in the licensed users list, they can only use PMX in **one database at a time**.
 > 
-> If the user needs to access PMX in multiple SAP company databases simultaneously, their username must be added to the licensed users list multiple times. This configuration allows for more than one concurrent session for the same user. However, each additional entry will consume an additional license.
+> If the user needs to access PMX in multiple SAP company databases simultaneously, their username must be added to the licensed users list multiple times. This configuration allows for more than one concurrent session for the same user. However, each additional active session will consume an additional license.
 {: .prompt-warning }
 
 
