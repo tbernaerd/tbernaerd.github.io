@@ -5,9 +5,8 @@ categories: [Produmex WMS, Data]
 description: A brief overview of the Produmex WMS database structure documentation and some helpful tips
 tags: [produmex, sql, database, wms]  
 toc: true   
-unlisted: true
 image: 
-    path: /assets/img/hero-db.png
+  path: /assets/2025/1/hero-db.png
 ---
 
 ## Introduction
@@ -90,6 +89,8 @@ Note that the same 18 digit SSCC key can appear multiple times in `PMX_LUID`, wi
 * **Length, Width and Height**: Dimensions as entered after packing if the [Picklist Type](http://wiki.produmex.name/doku.php?id=implementation:wms:plty) has "Ask for length, width, height" turned on. 
 
 ### PMX_MVHE and PMX_MVLI - Produmex moves
+
+
 
 
 ## Views
