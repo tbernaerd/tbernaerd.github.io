@@ -83,12 +83,32 @@ Note that the same 18 digit SSCC key can appear multiple times in `PMX_LUID`, wi
 
 **Other useful fields**
 
-* **IsFullPallet** (Y/N): Also visible as a checkbox in the inventory report. A 'Full Pallet' is a pallet that has not had any quantities or items altered since it was created. Usually, that means the wrapper is still on. This field is used in the picking flow to distinguish between an item pick and a full pallet pick 
-* **IsReadyForPacking** (Y/N): If Yes, then the SSCC was picked and finalized during picking but not packed yet
-* **ReadyForShipping** (Y/N): If Yes, then the pallet is picked and packed
-* **Length, Width and Height**: Dimensions as entered after packing if the [Picklist Type](http://wiki.produmex.name/doku.php?id=implementation:wms:plty) has "Ask for length, width, height" turned on. 
+* `IsFullPallet` (Y/N): Also visible as a checkbox in the inventory report. A 'Full Pallet' is a pallet that has not had any quantities or items altered since it was created. Usually, that means the wrapper is still on. This field is used in the picking flow to distinguish between an item pick and a full pallet pick 
+* `IsReadyForPacking` (Y/N): If Yes, then the SSCC was picked and finalized during picking but not packed yet
+* `ReadyForShipping` (Y/N): If Yes, then the pallet is picked and packed
+* `Length`, `Width` and `Height`: Dimensions as entered after packing if the [Picklist Type](http://wiki.produmex.name/doku.php?id=implementation:wms:plty) has "Ask for length, width, height" turned on. 
 
-### PMX_MVHE and PMX_MVLI - Produmex moves
+### PMX_MVHE and PMX_MVLI - Produmex move header and lines
+These tables track all warehouse movements between locations within Produmex. Every time stock is moved from one bin to another, a move document is created with a header record in `PMX_MVHE` and line records in `PMX_MVLI`. The header contains general move information like the move date, user who performed it, and source/target warehouse codes. The lines detail what was moved: item codes, quantities, batch information (via `ItemTransactionalInfoKey`), source and target locations, and SSCC details if applicable.
+
+> **Tip: Moves are everywhere in Produmex**
+> 
+> Many different operations create move records in `PMX_MVHE`/`PMX_MVLI`. This includes:
+> * Regular ad hoc moves.
+> * Moves from move orders (`PMX_MVLI.BaseType` is `PMX_MOHE`).
+> * Picks, which are essentially moves to a picking bin or directly to the dock (`PMX_MVLI.BaseType` is `PMX_PLHE`).
+> * Quality status changes. In a quality status change, the source and destination location (and LUID/SSCC) remain the same - only the `SrcQualityStatusCode` and `DestQualityStatusCode` differ. Not all "moves" involve physical relocation of stock.
+{: .prompt-tip }
+
+**Useful fields**
+
+* `PMX_MVLI.ReasonCode` and `PNX_MVLI.ReasonFreeText` will contain any entered reason codes and free text info, for example when changing quality status. 
+
+
+### PMX_PLHE and PMX_PLLI - Picklist header and lines
+
+
+### PMX_PLPH and PMX_PLPL - Picklist Proposal header and lines
 
 
 
@@ -109,8 +129,4 @@ In your customer-specific version of the view, add any new fields at the back an
 ### PMX_INVENTORY_REPORT_DETAILS
 
 This view contains data from PMX_INVT (Inventory Totals) and is the standard view used for the Inventory Report in the addon. As such, it contains all the necessary links to PMX_ITRI (Batch info). It also contains information on which GRPO document a particular stock line came in on, which can be useful.
-
-### PMX_FREE_STOCK
-
-To expand
 
