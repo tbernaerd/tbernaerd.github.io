@@ -25,6 +25,9 @@ package-lock.json
 # Misc
 _sass/vendors
 assets/js/dist
+.DS_Store
+dist/
+docs/
 
 ## AI related
 .claude/*
