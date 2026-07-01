@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 120" width="820" height="120" font-family="'Segoe UI', system-ui, -apple-system, sans-serif">
+  <defs>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <!-- Sales Order -->
+  <rect x="10" y="16" width="160" height="50" rx="6" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="90" y="38" text-anchor="middle" font-size="13" font-weight="600" fill="#1a3a5c">Sales Order</text>
+  <text x="90" y="54" text-anchor="middle" font-size="10" fill="#5f6b7a">SAP</text>
+
+  <!-- Arrow 1 -->
+  <line x1="170" y1="41" x2="208" y2="41" stroke="#9aa5b4" stroke-width="1.5"/>
+  <polygon points="204,36 214,41 204,46" fill="#9aa5b4"/>
+
+  <!-- Picklist Proposal -->
+  <rect x="216" y="8" width="180" height="66" rx="6" fill="#fef3e0" stroke="#f9a825" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="306" y="30" text-anchor="middle" font-size="13" font-weight="600" fill="#5d4037">Picklist Proposal</text>
+  <text x="306" y="46" text-anchor="middle" font-size="10" fill="#7a6a5a">Produmex WMS</text>
+  <text x="306" y="62" text-anchor="middle" font-size="9" fill="#8d7b6b" font-style="italic">selects batch, locks stock</text>
+
+  <!-- Arrow 2 -->
+  <line x1="396" y1="41" x2="434" y2="41" stroke="#9aa5b4" stroke-width="1.5"/>
+  <polygon points="430,36 440,41 430,46" fill="#9aa5b4"/>
+
+  <!-- Picklist -->
+  <rect x="442" y="8" width="180" height="66" rx="6" fill="#e8f5e9" stroke="#43a047" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="532" y="30" text-anchor="middle" font-size="13" font-weight="600" fill="#1b5e20">Picklist</text>
+  <text x="532" y="46" text-anchor="middle" font-size="10" fill="#4a7a4e">Produmex WMS</text>
+  <text x="532" y="62" text-anchor="middle" font-size="9" fill="#6a8e6e" font-style="italic">assigns locations, guides picker</text>
+
+  <!-- Arrow 3 -->
+  <line x1="622" y1="41" x2="660" y2="41" stroke="#9aa5b4" stroke-width="1.5"/>
+  <polygon points="656,36 666,41 656,46" fill="#9aa5b4"/>
+
+  <!-- Delivery Note -->
+  <rect x="668" y="16" width="140" height="50" rx="6" fill="#e8f0fe" stroke="#4285f4" stroke-width="1.5" filter="url(#shadow)"/>
+  <text x="738" y="38" text-anchor="middle" font-size="13" font-weight="600" fill="#1a3a5c">Delivery Note</text>
+  <text x="738" y="54" text-anchor="middle" font-size="10" fill="#5f6b7a">SAP</text>
+
+  <!-- Bottom annotations -->
+  <text x="306" y="100" text-anchor="middle" font-size="10" fill="#b08600" font-weight="500">▸ what to pick</text>
+  <text x="532" y="100" text-anchor="middle" font-size="10" fill="#2e7d32" font-weight="500">▸ where to pick</text>
+</svg>
