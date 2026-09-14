@@ -1,1 +1,3 @@
-{ "recommendations": ["astro-build.astro-vscode"] }
+{
+  "recommendations": ["ms-vscode-remote.remote-containers"]
+}

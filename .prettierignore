@@ -1,7 +1,0 @@
-dist/
-node_modules/
-.astro/
-prototype/
-public/
-src/content/blog/
-package-lock.json
