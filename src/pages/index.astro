@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ConnectionScene from '../components/ConnectionScene.astro';
+import QualityIllustration from '../components/QualityIllustration.astro';
+import Services from '../components/Services.astro';
+import Studio from '../components/Studio.astro';
+import CTA from '../components/CTA.astro';
+import { getListedPosts, postUrl } from '../lib/posts';
+const posts = (await getListedPosts()).slice(0, 3);
+---
+
+<BaseLayout>
+  <section class="hero-a wrap">
+    <div>
+      <div class="section-note">
+        <span class="tiny-dot"></span> Independent software studio
+      </div>
+      <h1>
+        The missing piece
+        <br />
+        in your business
+        <br />
+        software.
+      </h1>
+      <p class="intro">
+        Bespoke web applications that connect to the systems you already run.
+        Built around the way you work.
+      </p>
+      <div class="actions">
+        <a class="button" href="/contact/">
+          Discuss your workflow <Icon />
+        </a>
+        <a class="text-link" href="/outerforge/">
+          Meet OuterForge <Icon />
+        </a>
+      </div>
+      <p class="understatement">
+        SAP Business One · Produmex WMS · Connected applications
+      </p>
+    </div>
+    <ConnectionScene />
+  </section>
+  <div class="expertise-strip">
+    <div class="wrap expertise-inner">
+      <p>Built on experience with the systems you rely on.</p>
+      <div class="expertise-items">
+        <span>SAP Business One</span>
+        <span>Produmex WMS</span>
+        <span>Bespoke development</span>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <div class="section-note">A connected quality workflow</div>
+        <h2>
+          From the lab
+          <br />
+          to released stock.
+        </h2>
+        <p>
+          Your samples, test results and batch decisions belong together. Bring
+          them into one web application connected to SAP and Produmex.
+        </p>
+        <ul>
+          <li>
+            <Icon name="check" /> Samples and results in context
+          </li>
+          <li>
+            <Icon name="check" /> Certificates tied to the right batch
+          </li>
+          <li>
+            <Icon name="check" /> Accepted-batch release connected to PMX
+          </li>
+        </ul>
+        <a class="text-link" href="/solutions/quality-control/">
+          Explore quality control <Icon />
+        </a>
+      </div>
+      <div class="feature-bg">
+        <QualityIllustration />
+      </div>
+    </div>
+  </section>
+  <section class="section service-area">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          Build what’s missing.
+          <br />
+          Connect what matters.
+        </h2>
+        <p>
+          Practical software for the space between your systems and the way you
+          work.
+        </p>
+      </div>
+      <Services />
+    </div>
+  </section>
+  <Studio />
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>From the workbench.</h2>
+        <p>
+          Practical notes on business software,
+          <br />
+          integrations and building things that work.
+        </p>
+      </div>
+      <div class="article-list">
+        {posts.map((post) => (
+          <article class="article">
+            <small>{post.data.categories.join(' / ')}</small>
+            <div>
+              <a href={postUrl(post)}>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <span class="read">
+                  Read the note <Icon />
+                </span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+      <a class="text-link insights-link" href="/insights/">
+        All insights <Icon />
+      </a>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

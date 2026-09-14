@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ConnectionScene from '../../components/ConnectionScene.astro';
+import CTA from '../../components/CTA.astro';
+import Icon from '../../components/Icon.astro';
+---
+
+<BaseLayout
+  title="SAP & Produmex integrations"
+  description="Connect bespoke web applications to SAP Business One and Produmex WMS, with practical understanding of stock, documents and business rules."
+>
+  <section class="hero-a wrap">
+    <div>
+      <p class="section-note">Connected applications</p>
+      <h1>
+        Your systems.
+        <br />
+        Your workflow.
+        <br />
+        Connected.
+      </h1>
+      <p class="intro">
+        Use the data and operations already in SAP Business One and Produmex
+        within an application built around your process.
+      </p>
+      <div class="actions">
+        <a class="button" href="/contact/?interest=integration">
+          Discuss an integration <Icon />
+        </a>
+      </div>
+    </div>
+    <ConnectionScene />
+  </section>
+  <section class="section studio-section">
+    <div class="wrap editorial-split">
+      <h2>
+        Connections with
+        <br />
+        operational understanding.
+      </h2>
+      <div class="prose">
+        <p>
+          An integration needs to respect how your stock, documents and business
+          rules actually work. That understanding shapes which system owns a
+          record, when an action can happen, and what to do when it fails.
+        </p>
+        <p>
+          Outer Join brings hands-on SAP Business One and Produmex WMS
+          experience to these decisions. The connection is part of the workflow
+          from the start.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap editorial-split">
+      <h2>
+        A foundation for
+        <br />
+        the next connection.
+      </h2>
+      <div class="prose">
+        <p>
+          OuterForge already provides SAP Service Layer and PMX API connections,
+          alongside background jobs for work that runs beyond the immediate
+          screen interaction.
+        </p>
+        <p>
+          Other software connections can be assessed as part of a scoped
+          application. The right approach depends on the interfaces, data and
+          operational requirements of each system.
+        </p>
+        <p>
+          <a class="text-link" href="/outerforge/">
+            Explore OuterForge <Icon />
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

@@ -1,43 +1,41 @@
-# Chirpy Starter
+# Outer Join studio
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+The Astro source for [outerjoin.be](https://outerjoin.be). Static pages, local fonts, an interactive fictional QC illustration, and Markdown articles. No application backend or business-system connection runs on this website.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+## Local development
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+Node 24 LTS recommended (minimum 22.12).
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
-
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+```sh
+npm ci
+npm run dev
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+Open http://localhost:4321. Production verification:
 
-## Usage
+```sh
+npm run check
+npm run build
+npm test
+npm run preview
+```
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+## Editing
 
-## Contributing
+- Pages: `src/pages/`. Shared structure: `src/layouts/BaseLayout.astro` and `src/components/`.
+- Design tokens and shared styles: `src/styles/global.css`.
+- Articles: `src/content/blog/*.md`. Keep `slug` stable to preserve `/posts/<slug>/` links. Set `published` and `updated` to explicit ISO timestamps. `hidden: true` omits an article from default listings only; it remains public in archives/search/feed. All current articles are visible.
+- Original logo, fonts, images and legacy article assets: `public/`.
+- Feed, sitemap and legacy search JSON are generated from the same content collection.
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+## Publishing
 
-## License
+A push to `main` runs GitHub Actions: type check, static build, migration/link tests, then GitHub Pages deployment. Pull requests validate without deploying. GitHub Pages uses the custom domain `outerjoin.be`; `public/CNAME` preserves it.
 
-This work is published under [MIT][mit] License.
+The previous Jekyll site is in Git history at `8959a0f`. The standalone design prototypes remain in `prototype/`, outside published output. Prototype A was approved for this site.
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+`public/sw.min.js` retires the old Chirpy service worker and clears only `chirpy-*` caches. Keep this migration file available for returning visitors.
+
+## Content and privacy
+
+The QC interface uses labelled fictional data. Contact actions open email or LinkedIn; this site has no form backend, analytics scripts or tracking cookies. Article text and original publication dates are migrated from the existing blog.

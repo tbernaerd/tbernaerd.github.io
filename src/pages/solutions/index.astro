@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import Services from '../../components/Services.astro';
+import CTA from '../../components/CTA.astro';
+---
+
+<BaseLayout
+  title="Solutions"
+  description="Bespoke web applications, SAP Business One and Produmex integrations, and connected quality control. Software shaped around your workflow."
+>
+  <PageIntro
+    label="What we build"
+    title="Build what’s missing. Connect what matters."
+    description="A spreadsheet that became a process. A handoff that still needs an email. A task your ERP almost supports. Start with the work that needs a better home."
+  />
+  <section class="section service-area">
+    <div class="wrap">
+      <Services />
+    </div>
+  </section>
+  <section class="section studio-section">
+    <div class="wrap editorial-split">
+      <h2>
+        Start with a workflow.
+        <br />
+        Build a useful first step.
+      </h2>
+      <div class="prose">
+        <p>
+          We look at the process with the people who do the work. What data do
+          they need? Where does it live? What should happen when they finish?
+        </p>
+        <p>
+          That becomes a focused scope: the application, its connections, and
+          the conditions it needs to handle. Deployment and ongoing support are
+          agreed around the actual environment.
+        </p>
+        <p>
+          You work directly with Tom, from understanding the problem through
+          building the solution.
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

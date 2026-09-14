@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+---
+
+<BaseLayout title="Page not found" noindex>
+  <PageIntro
+    label="404"
+    title="This piece is missing."
+    description="The page may have moved, or the address may be incomplete."
+  >
+    <div class="actions">
+      <a class="button" href="/">
+        Back to the studio
+      </a>
+      <a class="text-link" href="/insights/">
+        Search the insights
+      </a>
+    </div>
+  </PageIntro>
+</BaseLayout>

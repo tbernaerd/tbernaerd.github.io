@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ConnectionScene from '../components/ConnectionScene.astro';
+import QualityIllustration from '../components/QualityIllustration.astro';
+import Icon from '../components/Icon.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<BaseLayout
+  title="OuterForge"
+  description="The foundation behind Outer Join’s integrated web applications. Connect SAP Business One and Produmex, then build the functionality your business needs."
+>
+  <section class="hero-a wrap">
+    <div>
+      <p class="section-note">OuterForge · Built by Outer Join</p>
+      <h1>
+        Build on what
+        <br />
+        already works.
+      </h1>
+      <p class="intro">
+        A foundation for web applications that fill the gaps in your business
+        software. Connected to your systems. Shaped around your work.
+      </p>
+      <div class="actions">
+        <a class="button" href="/contact/?interest=outerforge">
+          Discuss your application <Icon />
+        </a>
+      </div>
+    </div>
+    <ConnectionScene />
+  </section>
+  <section class="section studio-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          One foundation.
+          <br />
+          Applications that fit.
+        </h2>
+        <p>
+          OuterForge provides the shared building blocks behind the applications
+          we deliver.
+        </p>
+      </div>
+      <div class="service-list">
+        <article class="service">
+          <div class="service-icon">
+            <Icon name="link" />
+          </div>
+          <h3>Existing connections.</h3>
+          <p>
+            SAP Business One Service Layer and PMX API connections provide
+            access to the systems your business already runs.
+          </p>
+        </article>
+        <article class="service">
+          <div class="service-icon">
+            <Icon name="clock" />
+          </div>
+          <h3>Work in the background.</h3>
+          <p>
+            A background jobs system supports work that needs to run beyond a
+            single interaction in the application.
+          </p>
+        </article>
+        <article class="service">
+          <div class="service-icon">
+            <Icon name="code" />
+          </div>
+          <h3>Built around the task.</h3>
+          <p>
+            We develop the interface and functionality your workflow needs, with
+            scope for further connections as requirements grow.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <p class="section-note">See the foundation at work</p>
+        <h2>
+          Connected quality.
+          <br />A practical starting point.
+        </h2>
+        <p>
+          Quality control and batch release bring samples, test results and
+          certificates into a workflow linked to SAP and Produmex.
+        </p>
+        <a class="text-link" href="/solutions/quality-control/">
+          Explore OuterForge Quality <Icon />
+        </a>
+      </div>
+      <div class="feature-bg">
+        <QualityIllustration />
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>

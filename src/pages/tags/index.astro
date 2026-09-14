@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllPosts, taxonomySlug, taxonomyValues } from '../../lib/posts';
+const posts = await getAllPosts();
+const kind = 'tags';
+const values = taxonomyValues(posts, kind);
+---
+
+<BaseLayout title="Topics" description="Browse Outer Join articles by tags.">
+  <section class="wrap section taxonomy">
+    <p class="section-note">Browse the notes</p>
+    <h1>Topics.</h1>
+    <p class="intro">Find a useful starting point.</p>
+    <a class="text-link" href="/insights/">
+      ← Insights
+    </a>
+    <ul>
+      {values.map((value) => (
+        <li>
+          <a href={`/${kind}/${taxonomySlug(value)}/`}>
+            <span>{value}</span>
+            <span class="count">
+              {posts.filter((post) => post.data[kind].includes(value)).length}
+              <span class="sr-only"> articles</span> ↗
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
+<style>
+  .taxonomy {
+    max-width: 900px;
+  }
+  .taxonomy h1 {
+    font-size: clamp(2.7rem, 5vw, 4.5rem);
+    letter-spacing: -0.06em;
+    margin: 1rem 0;
+  }
+  .intro {
+    color: #516678;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .taxonomy ul {
+    list-style: none;
+    padding: 0;
+    margin: 3rem 0 0;
+    border-top: 1px solid #c8d5df;
+  }
+  .taxonomy li {
+    border-bottom: 1px solid #c8d5df;
+  }
+  .taxonomy li a {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.3rem 0;
+    text-decoration: none;
+    color: #193347;
+    font-size: 1.2rem;
+  }
+  .taxonomy li a:hover {
+    color: #356a91;
+  }
+  .count {
+    color: #6689a3;
+    font-size: 1rem;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import Icon from './Icon.astro';
+interface Props {
+  id?: string;
+}
+const { id = 'quality-example' } = Astro.props;
+const tabs = [
+  ['results', 'Test results'],
+  ['sample', 'Sample'],
+  ['certificate', 'Certificate'],
+];
+---
+
+<div class="quality-illustration">
+  <div class="sample-app" data-quality-example>
+    <div class="app-top">
+      <div class="app-brand">
+        <Icon name="flask" /> OuterForge{' '}
+        <span class="quality-label">Quality</span>
+      </div>
+      <span class="avatar" aria-label="Fictional user JD">
+        JD
+      </span>
+    </div>
+    <div class="app-main">
+      <p class="crumb">Quality control / Batches / QC-0264</p>
+      <div class="batch-title">
+        <h3>Herb seasoning blend</h3>
+        <span class="pill amber" data-batch-status>
+          Awaiting review
+        </span>
+      </div>
+      <p class="batch-subtitle">Batch B-260914 · Sample S-0264</p>
+      <div
+        class="app-tabs"
+        role="tablist"
+        aria-label="Illustrative batch details"
+      >
+        {tabs.map(([key, label], i) => (
+          <button
+            id={`${id}-${key}-tab`}
+            role="tab"
+            aria-selected={i === 0}
+            tabindex={i === 0 ? 0 : -1}
+            aria-controls={`${id}-${key}`}
+            data-tab={key}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div
+        id={`${id}-results`}
+        role="tabpanel"
+        tabindex="0"
+        aria-labelledby={`${id}-results-tab`}
+        data-panel="results"
+      >
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th scope="col">Test</th>
+              <th scope="col">Result</th>
+              <th scope="col">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Appearance</td>
+              <td>Conforms</td>
+              <td>
+                <span class="pill green">Passed</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Moisture</td>
+              <td>4.2%</td>
+              <td>
+                <span class="pill green">Passed</span>
+              </td>
+            </tr>
+            <tr>
+              <td>pH</td>
+              <td>6.1</td>
+              <td>
+                <span class="pill green">Passed</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        id={`${id}-sample`}
+        role="tabpanel"
+        tabindex="0"
+        aria-labelledby={`${id}-sample-tab`}
+        data-panel="sample"
+        hidden
+      >
+        <dl class="sample-summary">
+          <div>
+            <dt>Sample</dt>
+            <dd>S-0264</dd>
+          </div>
+          <div>
+            <dt>Batch</dt>
+            <dd>B-260914</dd>
+          </div>
+          <div>
+            <dt>Received</dt>
+            <dd>14 September 2026</dd>
+          </div>
+          <div>
+            <dt>Sample type</dt>
+            <dd>Finished product</dd>
+          </div>
+        </dl>
+      </div>
+      <div
+        id={`${id}-certificate`}
+        role="tabpanel"
+        tabindex="0"
+        aria-labelledby={`${id}-certificate-tab`}
+        data-panel="certificate"
+        hidden
+      >
+        <div class="certificate">
+          <Icon name="document" />
+          <strong>Certificate of analysis</strong>
+          <p>Batch B-260914 · Herb seasoning blend</p>
+          <p>Three results recorded. Ready for review.</p>
+        </div>
+      </div>
+    </div>
+    <div class="app-bottom">
+      <p aria-live="polite">
+        <Icon name="link" />
+        <span data-stock-status>PMX stock: on hold</span>
+      </p>
+      <button data-release>Preview batch release</button>
+    </div>
+  </div>
+  <p class="demo-caption">
+    Interactive illustration · fictional data, not a live integration
+  </p>
+</div>
+<script>
+  for (const example of document.querySelectorAll<HTMLElement>(
+    '[data-quality-example]',
+  )) {
+    const tabs = [
+      ...example.querySelectorAll<HTMLButtonElement>('[role="tab"]'),
+    ];
+    function select(tab: HTMLButtonElement) {
+      for (const button of tabs) {
+        button.setAttribute('aria-selected', String(button === tab));
+        button.tabIndex = button === tab ? 0 : -1;
+      }
+      for (const panel of example.querySelectorAll<HTMLElement>('[data-panel]'))
+        panel.hidden = panel.dataset.panel !== tab.dataset.tab;
+    }
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (event) => {
+        let next: number;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft')
+          next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        select(tabs[next]);
+        tabs[next].focus();
+      });
+    });
+    const release = example.querySelector<HTMLButtonElement>('[data-release]')!;
+    const batch = example.querySelector<HTMLElement>('[data-batch-status]')!;
+    const stock = example.querySelector<HTMLElement>('[data-stock-status]')!;
+    let released = false;
+    release.addEventListener('click', () => {
+      released = !released;
+      batch.textContent = released ? 'Accepted' : 'Awaiting review';
+      batch.className = `pill ${released ? 'green' : 'amber'}`;
+      stock.textContent = released
+        ? 'PMX stock: released (preview)'
+        : 'PMX stock: on hold';
+      release.textContent = released
+        ? 'Reset illustration'
+        : 'Preview batch release';
+    });
+  }
+</script>
+<style>
+  .quality-label {
+    font: 12px var(--body);
+    color: var(--slate);
+    margin-left: 3px;
+  }
+  .batch-title h3 {
+    font-size: 20px;
+    letter-spacing: -0.035em;
+  }
+  [role='tabpanel'] {
+    min-height: 161px;
+  }
+  @media (max-width: 480px) {
+    .batch-title h3 {
+      font-size: 18px;
+    }
+  }
+</style>

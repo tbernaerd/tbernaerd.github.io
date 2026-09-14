@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+const services = [
+  {
+    icon: 'code',
+    title: 'Applications that fit',
+    description:
+      'A focused web application shaped around your people, processes and the work your existing software leaves uncovered.',
+    url: '/solutions/bespoke-applications/',
+  },
+  {
+    icon: 'link',
+    title: 'Systems that connect',
+    description:
+      'Connect the application to SAP Business One and Produmex, so your workflow can use the data already there.',
+    url: '/solutions/integrations/',
+  },
+  {
+    icon: 'flask',
+    title: 'Quality that flows',
+    description:
+      'Samples, results, certificates and batch release brought together in a connected QC workflow.',
+    url: '/solutions/quality-control/',
+  },
+];
+---
+
+<div class="service-list">
+  {services.map((service) => (
+    <article class="service">
+      <div class="service-icon">
+        <Icon name={service.icon} />
+      </div>
+      <div>
+        <h3>{service.title}</h3>
+        <p>{service.description}</p>
+        <a class="text-link" href={service.url}>
+          Find out more{' '}
+          <span class="sr-only">about {service.title.toLowerCase()}</span>
+          <Icon />
+        </a>
+      </div>
+    </article>
+  ))}
+</div>

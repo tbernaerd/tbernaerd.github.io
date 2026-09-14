@@ -1,0 +1,75 @@
+---
+import Icon from './Icon.astro';
+const links = [
+  ['Solutions', '/solutions/'],
+  ['OuterForge', '/outerforge/'],
+  ['Insights', '/insights/'],
+  ['About', '/about/'],
+  ['Let’s talk', '/contact/'],
+];
+const active = (href: string) => Astro.url.pathname.startsWith(href);
+---
+
+<div class="header-shell">
+  <header class="header wrap">
+    <a href="/" aria-label="Outer Join home">
+      <img
+        class="logo"
+        src="/outerjoin.svg"
+        alt="Outer Join"
+        width="325"
+        height="160"
+      />
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      {links.map(([label, href], i) => (
+        <a
+          href={href}
+          class:list={[i === 4 && 'button']}
+          aria-current={active(href) ? 'page' : undefined}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+    <button
+      class="menu-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+      aria-label="Open menu"
+    >
+      <Icon name="menu" />
+    </button>
+  </header>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+    {links.map(([label, href]) => (
+      <a href={href} aria-current={active(href) ? 'page' : undefined}>
+        {label}
+      </a>
+    ))}
+  </nav>
+</div>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#mobile-nav');
+  function setOpen(open: boolean) {
+    toggle?.setAttribute('aria-expanded', String(open));
+    toggle?.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    nav?.classList.toggle('open', open);
+  }
+  toggle?.addEventListener('click', () =>
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+  );
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      toggle?.getAttribute('aria-expanded') === 'true'
+    ) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  matchMedia('(min-width: 801px)').addEventListener('change', (event) => {
+    if (event.matches) setOpen(false);
+  });
+</script>

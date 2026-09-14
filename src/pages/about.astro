@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import Studio from '../components/Studio.astro';
+import CTA from '../components/CTA.astro';
+---
+
+<BaseLayout
+  title="About the studio"
+  description="Outer Join is Tom Bernaerd’s independent software studio in Belgium. Hands-on SAP Business One and Produmex experience, applied to focused integrated applications."
+>
+  <PageIntro
+    label="About Outer Join"
+    title="Independent development. Integrated thinking."
+    description="A small software studio in Belgium, building focused applications for the work that happens around your business systems."
+  />
+  <Studio />
+  <section class="section">
+    <div class="wrap editorial-split">
+      <h2>
+        Close to the process.
+        <br />
+        Hands-on with the software.
+      </h2>
+      <div class="prose">
+        <p>
+          My work has taken me through warehouse implementations, business
+          software, eCommerce and IT infrastructure. Working with Produmex WMS
+          and SAP Business One has taught me how much depends on the details
+          between systems.
+        </p>
+        <p>
+          Today, Outer Join brings that experience into bespoke web applications
+          and connected workflows. You work directly with the person
+          understanding the process, making the technical decisions and building
+          the application.
+        </p>
+        <p>
+          Alongside development, I help with focused integration and technical
+          consulting. The aim is useful software that fits the way your business
+          operates.
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</BaseLayout>
