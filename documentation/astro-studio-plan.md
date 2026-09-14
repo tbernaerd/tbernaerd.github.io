@@ -13,7 +13,7 @@ Architecture: Astro static pages and shared components, local fonts/images, Mark
 - [x] 3. Migrate the blog. Preserve all five articles, explicit slugs, dates from the live Atom feed, images, callouts, heading links and metadata. Add insights/search, legacy archives/tags/categories, full article pages, `/feed.xml`, `/sitemap.xml` and the old search JSON route. Unhide the picking article, including it in homepage/latest Insights, archives, search, taxonomies, feed and sitemap as explicitly requested.
 - [x] 4. Add commercial pages: solutions, QC, bespoke applications, integrations, OuterForge, about, contact and 404. Use actual experience and precise capability claims; no fabricated customer proof or form submission. Keep email and LinkedIn as working contact routes.
 - [x] 5. Replace the old Jekyll deployment definition with Astro validation and GitHub Pages deployment. Preserve the custom domain. Retire the old site's actual service worker through a same-path replacement and scoped cleanup. Publish the verified build as authorized.
-- [ ] 6. Verify production build, type checking, route/content/link/metadata contracts and browser interactions at desktop/mobile sizes. Review the complete diff. Publish the verified site through GitHub Actions and verify the live homepage, blog and supporting routes.
+- [x] 6. Verify production build, type checking, route/content/link/metadata contracts and browser interactions at desktop/mobile sizes. Review the complete diff. Publish the verified site through GitHub Actions and verify the live homepage, blog and supporting routes.
 
 ## Shared interfaces
 
@@ -42,3 +42,5 @@ Progress and notable decisions are recorded below as work proceeds.
 - Removed Jekyll scaffolding after migration. Original assets retain paths; source is recoverable in Git history. Original Atom feed identity preserved.
 
 - Independent release review found no blockers. Minor contact improvement: carry QC/integration enquiry intent into the email subject. Final production preview also verified search and reduced-motion behavior.
+
+- Published 2026-09-14. Runtime release `391c5fa`; GitHub Actions run `34874362833` succeeded. Live homepage, product pages, unhidden picking article, search, feed, sitemap and migration worker return successfully. Live QC interaction and article search work. A browser previously controlled by the old Chirpy worker transitioned automatically to Astro: no service-worker registrations or Chirpy caches remain. Main local checkout updated; existing BLOG_IDEAS.md untouched.
