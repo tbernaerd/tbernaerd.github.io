@@ -80,7 +80,7 @@ import Icon from '../components/Icon.astro';
   const email = document.querySelector<HTMLAnchorElement>(
     '[data-email-action]',
   );
-  if (interest && subjects[interest] && email) {
+  if (interest && Object.hasOwn(subjects, interest) && email) {
     email.href = `mailto:tom@outerjoin.be?subject=${encodeURIComponent(subjects[interest])}`;
   }
 </script>
