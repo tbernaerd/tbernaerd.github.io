@@ -40,3 +40,5 @@ Progress and notable decisions are recorded below as work proceeds.
 
 - Astro 7.3.2 static build: 36 HTML pages plus Atom feed, sitemap and search JSON. Eight migration/link/metadata/cache retirement tests passing. Type check has no errors or warnings. Browser verified desktop and 320/390px mobile, menu/Escape, QC tabs with arrow keys, release/reset, search/clear/no results, and all article section anchors against the previous live site.
 - Removed Jekyll scaffolding after migration. Original assets retain paths; source is recoverable in Git history. Original Atom feed identity preserved.
+
+- Independent release review found no blockers. Minor contact improvement: carry QC/integration enquiry intent into the email subject. Final production preview also verified search and reduced-motion behavior.

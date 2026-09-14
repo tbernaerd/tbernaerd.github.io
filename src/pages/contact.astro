@@ -21,6 +21,7 @@ import Icon from '../components/Icon.astro';
     <div class="actions">
       <a
         class="button"
+        data-email-action
         href="mailto:tom@outerjoin.be?subject=Let%27s%20discuss%20a%20workflow"
       >
         Email Tom <Icon />
@@ -67,3 +68,19 @@ import Icon from '../components/Icon.astro';
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const subjects: Record<string, string> = {
+    quality: 'Let’s discuss a QC workflow',
+    'quality-demo': 'OuterForge Quality walkthrough',
+    integration: 'Let’s discuss an integration',
+    outerforge: 'Let’s discuss an OuterForge application',
+  };
+  const interest = new URLSearchParams(location.search).get('interest');
+  const email = document.querySelector<HTMLAnchorElement>(
+    '[data-email-action]',
+  );
+  if (interest && subjects[interest] && email) {
+    email.href = `mailto:tom@outerjoin.be?subject=${encodeURIComponent(subjects[interest])}`;
+  }
+</script>
