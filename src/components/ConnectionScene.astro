@@ -182,10 +182,17 @@ const connections = [
     background: var(--feature-fill);
     color: var(--on-brand);
     padding: 24px;
+    box-shadow: var(--platform-accent-shadow, none);
   }
   .platform-heading > :global(.icon) {
     width: 26px;
     height: 26px;
+    color: var(--action-text, inherit);
+    background: var(--action-fill, transparent);
+    box-sizing: content-box;
+    padding: var(--platform-icon-padding, 0);
+    margin: var(--platform-icon-margin, 0);
+    border-radius: 6px;
   }
   .platform-heading strong {
     display: block;
