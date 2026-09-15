@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+---
+
+<button
+  type="button"
+  class="theme-picker"
+  data-theme-picker
+  aria-label="Color theme: system. Switch to dark."
+  title="Color theme: system. Switch to dark."
+>
+  <span class="theme-system-icon">
+    <Icon name="monitor" />
+  </span>
+  <span class="theme-dark-icon">
+    <Icon name="moon" />
+  </span>
+  <span class="theme-light-icon">
+    <Icon name="sun" />
+  </span>
+</button>
+<style>
+  .theme-picker {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--muted);
+  }
+  :global(html[data-theme]) .theme-picker {
+    display: inline-flex;
+  }
+  .theme-picker:hover,
+  .theme-picker:focus-visible {
+    background: var(--surface-muted);
+    color: var(--blue);
+  }
+  .theme-picker :global(.icon) {
+    width: 20px;
+    height: 20px;
+  }
+  .theme-picker > span {
+    display: none;
+  }
+  :global(html[data-theme-preference='system']) .theme-system-icon,
+  :global(html[data-theme-preference='dark']) .theme-dark-icon,
+  :global(html[data-theme-preference='light']) .theme-light-icon {
+    display: block;
+  }
+</style>

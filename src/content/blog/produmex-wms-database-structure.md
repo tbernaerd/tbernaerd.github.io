@@ -17,8 +17,13 @@
   ],
   "hidden": false,
   "image": {
-    "src": "/assets/2025/1/hero-db.png",
-    "alt": "Produmex WMS database structure - Tips & Tricks"
+    "src": "/assets/heroes/database-studio.webp",
+    "thumbnail": "/assets/heroes/database-studio-thumb.webp",
+    "alt": "Connected data cabinets representing warehouse records and inventory relationships.",
+    "dark": {
+      "src": "/assets/heroes/database-studio-dark.webp",
+      "thumbnail": "/assets/heroes/database-studio-dark-thumb.webp"
+    }
   }
 }
 ---

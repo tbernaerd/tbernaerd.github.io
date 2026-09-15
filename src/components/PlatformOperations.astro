@@ -1,0 +1,153 @@
+---
+import Icon from './Icon.astro';
+---
+
+<figure class="platform-operations">
+  <figcaption>
+    <Icon name="layers" />
+    <strong>OuterForge</strong>
+    <span>Shared application features</span>
+  </figcaption>
+  <div class="operations-body">
+    <h3>Background jobs</h3>
+    <div class="job">
+      <div>
+        <strong>Generate CoA</strong>
+        <small>Test record QC-0264</small>
+      </div>
+      <span class="pill green">Completed</span>
+    </div>
+    <div class="job">
+      <div>
+        <strong>Send analysis request</strong>
+        <small>Outgoing email linked to request</small>
+      </div>
+      <span class="pill green">Sent</span>
+    </div>
+    <div class="job">
+      <div>
+        <strong>Update stock quality</strong>
+        <small>Produmex API unavailable</small>
+      </div>
+      <span class="pill amber">Retry needed</span>
+    </div>
+    <details>
+      <summary>What can an operator do?</summary>
+      <p>
+        Open the job, inspect the failure and retry it. The QC decision remains
+        recorded while the stock update is resolved.
+      </p>
+    </details>
+    <div class="shared-features">
+      <span>
+        <Icon name="users" /> Roles control access
+      </span>
+      <span>
+        <Icon name="document" /> Changes carry an audit trail
+      </span>
+      <span>
+        <Icon name="mail" /> Emails stay with their records
+      </span>
+    </div>
+  </div>
+  <p class="operations-caption">Capability illustration · fictional records</p>
+</figure>
+<style>
+  .platform-operations {
+    margin: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 9px;
+    padding: 20px 24px;
+    background: var(--feature-fill);
+    color: var(--on-brand);
+    font-size: 17px;
+  }
+  figcaption span {
+    flex-basis: 100%;
+    margin-left: 30px;
+    font-size: 13px;
+    color: var(--on-brand-muted);
+  }
+  .operations-body {
+    padding: 24px;
+  }
+  h3 {
+    font-size: 19px;
+    margin-bottom: 18px;
+  }
+  .job {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .job strong {
+    font-weight: 600;
+  }
+  .job small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  details {
+    border-top: 1px solid var(--line);
+    padding-top: 15px;
+    font-size: 14px;
+  }
+  summary {
+    cursor: pointer;
+    color: var(--blue);
+  }
+  summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 4px;
+  }
+  details p {
+    margin-top: 10px;
+  }
+  .shared-features {
+    display: grid;
+    gap: 10px;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    color: var(--slate);
+    font-size: 14px;
+  }
+  .shared-features span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .shared-features :global(.icon) {
+    color: var(--blue);
+    width: 17px;
+    height: 17px;
+  }
+  .operations-caption {
+    background: var(--mist);
+    padding: 12px;
+    font-size: 12px;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    .operations-body {
+      padding: 18px;
+    }
+    .job {
+      gap: 10px;
+      font-size: 14px;
+    }
+  }
+</style>

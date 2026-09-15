@@ -1,59 +1,249 @@
 ---
 import Icon from './Icon.astro';
+const connections = [
+  'M110 6V32Q110 48 130 48H205Q225 48 225 68V90',
+  'M390 6V32Q390 48 370 48H295Q275 48 275 68V90',
+];
 ---
 
 <div
-  class="connection-scene"
-  aria-label="SAP Business One and Produmex connected to a tailored web application"
+  class="integration-diagram"
+  role="img"
+  aria-label="Bidirectional data exchange: OuterForge reads from and writes to SAP Business One through the Service Layer and Produmex WMS through the PMX API. Quality and bespoke applications run on OuterForge."
 >
-  <div class="scene-halo"></div>
-  <p class="scene-caption">The systems you know. A better way to work.</p>
+  <div class="connected-systems">
+    <div class="connected-system">
+      <span class="system-mark">SAP</span>
+      <div>
+        <strong>SAP Business One</strong>
+        <small>Service Layer</small>
+      </div>
+    </div>
+    <div class="connected-system">
+      <span class="system-mark">
+        <Icon name="layers" />
+      </span>
+      <div>
+        <strong>Produmex WMS</strong>
+        <small>PMX API</small>
+      </div>
+    </div>
+  </div>
   <svg
-    class="scene-lines"
-    viewBox="0 0 500 466"
+    class="bidirectional-connections"
+    viewBox="0 0 500 96"
     preserveAspectRatio="none"
     aria-hidden="true"
   >
-    <path
-      class="wire"
-      d="M100 157v36q0 22 22 22h107q21 0 21 21v28M400 157v36q0 22-22 22H271q-21 0-21 21v28"
-    />
-    <path
-      class="wire moving"
-      d="M100 157v36q0 22 22 22h107q21 0 21 21v28M400 157v36q0 22-22 22H271q-21 0-21 21v28"
-    />
-    <circle cx="250" cy="215" r="4" fill="#4a6481" />
+    <defs>
+      <marker
+        id="connection-arrow"
+        viewBox="0 0 10 10"
+        refX="8"
+        refY="5"
+        markerWidth="7"
+        markerHeight="7"
+        orient="auto-start-reverse"
+        markerUnits="userSpaceOnUse"
+      >
+        <path d="M2 1L8 5L2 9" />
+      </marker>
+    </defs>
+    {connections.map((d) => (
+      <g>
+        <path
+          class="connection"
+          d={d}
+          marker-start="url(#connection-arrow)"
+          marker-end="url(#connection-arrow)"
+        />
+        <path class="connection-flow" d={d} pathLength="100" />
+        <path class="connection-flow returning" d={d} pathLength="100" />
+      </g>
+    ))}
   </svg>
-  <div class="system-node sap">
-    <span class="node-mark">SAP</span>
-    <div>
-      <strong>SAP Business One</strong>
-      <small>Your business foundation</small>
-    </div>
-  </div>
-  <div class="system-node pmx">
-    <span class="node-mark">
-      <Icon name="layers" />
-    </span>
-    <div>
-      <strong>Produmex WMS</strong>
-      <small>Your warehouse operations</small>
-    </div>
-  </div>
-  <div class="application-node">
-    <div class="app-node-title">
+  <div class="connected-platform">
+    <div class="platform-heading">
       <Icon name="grid" />
       <div>
-        <strong>Built around your workflow</strong>
-        <small>Connected web applications</small>
+        <strong>OuterForge</strong>
+        <small>Web-based application platform</small>
       </div>
     </div>
-    <div class="app-node-row">
-      Quality control & batch release <Icon name="check" />
+    <div class="connected-app">
+      Quality · Ready-made QC app <Icon name="check" />
     </div>
-    <div class="app-node-row">
-      The functionality you’re missing <Icon name="check" />
+    <div class="connected-app">
+      Your bespoke application <Icon name="check" />
     </div>
   </div>
-  <p class="scene-footnote">One connected workflow. Built to fit.</p>
 </div>
+<style>
+  .integration-diagram {
+    width: 100%;
+    max-width: 550px;
+    margin: 25px auto;
+  }
+  .connected-systems {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .connected-system {
+    width: 44%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 14px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+  }
+  .system-mark {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 7px;
+    background: var(--surface-muted);
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .connected-system strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .connected-system small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+  .bidirectional-connections {
+    display: block;
+    width: 100%;
+    height: 96px;
+    overflow: visible;
+  }
+  .connection {
+    fill: none;
+    stroke: var(--connector);
+    stroke-width: 1.6;
+  }
+  .connection-flow {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 2.5;
+    stroke-dasharray: 4 96;
+    pointer-events: none;
+    animation: connection-travel 5s linear infinite;
+  }
+  .connection-flow.returning {
+    animation-direction: reverse;
+    opacity: 0.65;
+  }
+  @keyframes connection-travel {
+    from {
+      stroke-dashoffset: 0;
+    }
+    to {
+      stroke-dashoffset: -100;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .connection-flow {
+      animation: none;
+      display: none;
+    }
+  }
+  marker path {
+    fill: none;
+    stroke: var(--blue);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .connected-platform {
+    width: 76%;
+    max-width: 350px;
+    margin: auto;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+  .platform-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--feature-fill);
+    color: var(--on-brand);
+    padding: 24px;
+  }
+  .platform-heading > :global(.icon) {
+    width: 26px;
+    height: 26px;
+  }
+  .platform-heading strong {
+    display: block;
+    font: 500 24px var(--heading);
+    letter-spacing: -0.035em;
+  }
+  .platform-heading small {
+    display: block;
+    margin-top: 7px;
+    font-size: 13px;
+    color: var(--on-brand-muted);
+  }
+  .connected-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 20px;
+    font-size: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .connected-app :global(.icon) {
+    width: 16px;
+    height: 16px;
+    color: var(--blue);
+  }
+  @media (max-width: 1100px) {
+    .connected-system {
+      padding: 14px 10px;
+      gap: 8px;
+    }
+    .connected-system strong {
+      font-size: 13px;
+    }
+    .system-mark {
+      width: 29px;
+      height: 29px;
+      font-size: 11px;
+    }
+  }
+  @media (max-width: 480px) {
+    .connected-system {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 14px 12px;
+    }
+    .connected-systems {
+      gap: 15px;
+    }
+    .connected-platform {
+      width: 88%;
+    }
+    .platform-heading {
+      padding: 21px;
+    }
+    .connected-app {
+      padding: 14px;
+      font-size: 13px;
+    }
+  }
+</style>

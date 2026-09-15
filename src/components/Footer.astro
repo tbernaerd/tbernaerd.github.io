@@ -1,6 +1,10 @@
+---
+import ThemePicker from './ThemePicker.astro';
+---
+
 <footer class="footer">
   <div class="wrap">
-    <p>© {new Date().getFullYear()} Outer Join · Tom Bernaerd</p>
+    <p>© {new Date().getFullYear()} Outer Join BV. All rights reserved.</p>
     <div class="footer-links">
       <a href="mailto:tom@outerjoin.be">tom@outerjoin.be</a>
       <a
@@ -11,6 +15,15 @@
         LinkedIn
       </a>
       <a href="/feed.xml">RSS</a>
+      <ThemePicker />
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-links {
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+</style>

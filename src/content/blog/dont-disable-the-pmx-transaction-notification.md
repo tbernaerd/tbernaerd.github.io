@@ -17,8 +17,9 @@
   ],
   "hidden": false,
   "image": {
-    "src": "/assets/2025/3/hero.png",
-    "alt": "Don't disable the Produmex Transaction Notification!"
+    "src": "/assets/heroes/notification-photo.webp",
+    "thumbnail": "/assets/heroes/notification-photo-thumb.webp",
+    "alt": "A protected red control switch with an amber indicator on an industrial panel."
   }
 }
 ---

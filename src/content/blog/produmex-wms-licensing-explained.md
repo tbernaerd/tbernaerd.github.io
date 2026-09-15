@@ -16,8 +16,9 @@
   ],
   "hidden": false,
   "image": {
-    "src": "/assets/2025/2/hero-warehouse.png",
-    "alt": "Produmex WMS Licensing explained"
+    "src": "/assets/heroes/licensing-photo.webp",
+    "thumbnail": "/assets/heroes/licensing-photo-thumb.webp",
+    "alt": "A warehouse operator using a rugged barcode terminal beside a labelled carton."
   }
 }
 ---

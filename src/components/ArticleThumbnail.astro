@@ -1,0 +1,66 @@
+---
+import type { Post } from '../lib/posts';
+import ArticleImage from './ArticleImage.astro';
+interface Props {
+  post: Post;
+}
+const { post } = Astro.props;
+const image = post.data.image;
+const picking = post.data.slug === 'how-produmex-decides-what-to-pick';
+---
+
+<div class:list={['article-thumbnail', { diagram: !image }]}>
+  {image ? (
+    <ArticleImage image={image} thumbnail />
+  ) : picking ? (
+    <div class="diagram-preview" aria-hidden="true">
+      <span>From order to pick</span>
+      <img
+        src="/assets/2026/2/picking-flow.svg"
+        alt=""
+        width="820"
+        height="120"
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <span class="fallback" aria-hidden="true">
+      Notes from the workbench
+    </span>
+  )}
+</div>
+<style>
+  .article-thumbnail {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 5px;
+    background: var(--mist);
+    width: 100%;
+  }
+  .diagram-preview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    padding: 22px 18px;
+    height: 100%;
+    background: var(--surface-muted);
+  }
+  .diagram-preview span {
+    font: 500 18px var(--heading);
+    color: var(--blue);
+    letter-spacing: -0.03em;
+  }
+  .diagram-preview img {
+    width: 100%;
+    height: auto;
+  }
+  .fallback {
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    font: 500 20px var(--heading);
+    color: var(--blue);
+  }
+</style>

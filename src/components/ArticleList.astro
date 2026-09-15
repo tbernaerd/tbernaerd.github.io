@@ -1,4 +1,6 @@
 ---
+import ArticleThumbnail from './ArticleThumbnail.astro';
+import Icon from './Icon.astro';
 import { formatDate, postUrl, readingMinutes, type Post } from '../lib/posts';
 interface Props {
   posts: Post[];
@@ -8,43 +10,53 @@ const { posts } = Astro.props;
 
 <div class="article-list">
   {posts.map((post) => (
-    <article class="article-row">
-      <div class="article-meta">
-        <time datetime={post.data.published.toISOString()}>
-          {formatDate(post.data.published)}
-        </time>
-        <span>
-          {post.data.categories[0]} · {readingMinutes(post)} min read
-        </span>
-      </div>
-      <div>
-        <h2>
-          <a href={postUrl(post)}>
-            {post.data.title}
-            <span aria-hidden="true"> ↗</span>
-          </a>
-        </h2>
-        <p>{post.data.description}</p>
-      </div>
+    <article>
+      <a class="article-row" href={postUrl(post)}>
+        <ArticleThumbnail post={post} />
+        <div>
+          <div class="article-meta">
+            <time datetime={post.data.published.toISOString()}>
+              {formatDate(post.data.published)}
+            </time>
+            <span>
+              {post.data.categories[0]} · {readingMinutes(post)} min read
+            </span>
+          </div>
+          <h2>
+            <span>{post.data.title}</span>
+            <span class="title-arrow" aria-hidden="true">
+              <Icon />
+            </span>
+          </h2>
+          <p>{post.data.description}</p>
+        </div>
+      </a>
     </article>
   ))}
 </div>
 <style>
   .article-list {
-    border-top: 1px solid #c8d5df;
+    display: block;
+    border-top: 1px solid var(--line);
   }
   .article-row {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
+    grid-template-columns: 240px minmax(0, 1fr);
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
     gap: 2rem;
     padding: 2.5rem 0;
-    border-bottom: 1px solid #c8d5df;
+    border-bottom: 1px solid var(--line);
   }
   .article-meta {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
     gap: 0.5rem;
-    color: #516678;
+    color: var(--slate);
     font-size: 0.9rem;
     padding-top: 0.25rem;
   }
@@ -52,26 +64,31 @@ const { posts } = Astro.props;
     font-size: 0.8rem;
   }
   .article-row h2 {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
     font-size: clamp(1.25rem, 2.3vw, 1.65rem);
     line-height: 1.35;
     margin: 0 0 0.7rem;
     letter-spacing: -0.04em;
   }
-  .article-row a {
-    color: inherit;
-    text-decoration: none;
+  .article-row:hover h2,
+  .article-row:focus-visible h2 {
+    color: var(--link-hover);
   }
-  .article-row a:hover {
-    color: #356a91;
+  .title-arrow {
+    display: inline-flex;
+    flex: 0 0 auto;
+    padding-top: 0.2em;
+    color: var(--muted);
   }
-  .article-row a span {
-    color: #6689a3;
-    display: inline-block;
-    font-size: 1.1rem;
+  .title-arrow :global(.icon) {
+    width: 0.95em;
+    height: 0.95em;
   }
   .article-row p {
     max-width: 66ch;
-    color: #516678;
+    color: var(--slate);
     margin: 0;
     line-height: 1.6;
   }

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import ArticleThumbnail from '../components/ArticleThumbnail.astro';
 import ConnectionScene from '../components/ConnectionScene.astro';
 import QualityIllustration from '../components/QualityIllustration.astro';
 import Services from '../components/Services.astro';
@@ -14,7 +15,9 @@ const posts = (await getListedPosts()).slice(0, 3);
   <section class="hero-a wrap">
     <div>
       <div class="section-note">
-        <span class="tiny-dot"></span> Independent software studio
+        Independent software studio
+        <span class="tiny-dot" aria-hidden="true"></span>
+        Logistics consulting
       </div>
       <h1>
         The missing piece
@@ -24,8 +27,9 @@ const posts = (await getListedPosts()).slice(0, 3);
         software.
       </h1>
       <p class="intro">
-        Bespoke web applications that connect to the systems you already run.
-        Built around the way you work.
+        Quality-control software, bespoke web applications and logistics
+        consulting. Connected to SAP Business One and Produmex WMS, with
+        hands-on knowledge of the systems you run.
       </p>
       <div class="actions">
         <a class="button" href="/contact/">
@@ -54,29 +58,36 @@ const posts = (await getListedPosts()).slice(0, 3);
   <section class="section">
     <div class="wrap feature-grid">
       <div class="feature-copy">
-        <div class="section-note">A connected quality workflow</div>
+        <div class="section-note">
+          OuterForge Quality · Ready-made QC software
+        </div>
         <h2>
           From the lab
           <br />
           to released stock.
         </h2>
         <p>
-          Your samples, test results and batch decisions belong together. Bring
-          them into one web application connected to SAP and Produmex.
+          OuterForge Quality is the QC and batch-release application built on
+          our OuterForge platform. Specifications, samples and supplier
+          certificates stay with the batch, from testing through PMX stock
+          release.
         </p>
         <ul>
           <li>
-            <Icon name="check" /> Samples and results in context
+            <Icon name="check" /> Specifications, samples and internal or
+            external tests
           </li>
           <li>
-            <Icon name="check" /> Certificates tied to the right batch
+            <Icon name="check" /> AI-Assisted checks on supplier provenance
+            documentation (e.g. Certificate of Analysis)
           </li>
           <li>
-            <Icon name="check" /> Accepted-batch release connected to PMX
+            <Icon name="check" /> Batch QC acceptance triggers quality status
+            change in Produmex WMS
           </li>
         </ul>
         <a class="text-link" href="/solutions/quality-control/">
-          Explore quality control <Icon />
+          Explore OuterForge Quality <Icon />
         </a>
       </div>
       <div class="feature-bg">
@@ -87,17 +98,25 @@ const posts = (await getListedPosts()).slice(0, 3);
   <section class="section service-area">
     <div class="wrap">
       <div class="section-head">
-        <h2>
-          Build what’s missing.
-          <br />
-          Connect what matters.
-        </h2>
+        <h2>Software and consulting.</h2>
         <p>
-          Practical software for the space between your systems and the way you
-          work.
+          Start with an existing Quality application, commission a bespoke
+          application, or get focused help with SAP and Produmex.
         </p>
       </div>
       <Services />
+      <div class="platform-context">
+        <Icon name="layers" />
+        <p>
+          <strong>One platform behind the applications.</strong> OuterForge
+          provides the SAP and Produmex connections, user management, email and
+          background jobs shared by Quality and the applications we build for
+          you.
+        </p>
+        <a class="text-link" href="/outerforge/">
+          Explore the platform <Icon />
+        </a>
+      </div>
     </div>
   </section>
   <Studio />
@@ -113,17 +132,16 @@ const posts = (await getListedPosts()).slice(0, 3);
       </div>
       <div class="article-list">
         {posts.map((post) => (
-          <article class="article">
-            <small>{post.data.categories.join(' / ')}</small>
-            <div>
-              <a href={postUrl(post)}>
-                <h3>{post.data.title}</h3>
-                <p>{post.data.description}</p>
-                <span class="read">
-                  Read the note <Icon />
-                </span>
-              </a>
-            </div>
+          <article class="article article-with-image">
+            <a href={postUrl(post)}>
+              <ArticleThumbnail post={post} />
+              <small>{post.data.categories.join(' / ')}</small>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+              <span class="read">
+                Read the note <Icon />
+              </span>
+            </a>
           </article>
         ))}
       </div>
@@ -134,3 +152,40 @@ const posts = (await getListedPosts()).slice(0, 3);
   </section>
   <CTA />
 </BaseLayout>
+
+<style>
+  .platform-context {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    margin-top: 48px;
+  }
+  .platform-context > :global(.icon) {
+    color: var(--blue);
+    margin-top: 5px;
+  }
+  .platform-context p {
+    flex: 1;
+    max-width: 740px;
+  }
+  .platform-context strong {
+    color: var(--ink);
+  }
+  .platform-context a {
+    flex-shrink: 0;
+    font-size: 16px;
+  }
+  @media (max-width: 800px) {
+    .platform-context {
+      flex-wrap: wrap;
+    }
+    .platform-context p {
+      flex-basis: calc(100% - 50px);
+    }
+    .platform-context a {
+      margin-left: 41px;
+    }
+  }
+</style>

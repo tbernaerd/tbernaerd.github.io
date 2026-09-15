@@ -41,17 +41,34 @@ import Icon from '../components/Icon.astro';
   </section>
   <section class="section studio-section">
     <div class="wrap contact-grid">
-      <div class="contact-person">
-        <img
-          src="/tom-bernaerd.jpg"
-          alt="Tom Bernaerd"
-          width="110"
-          height="110"
-        />
-        <div>
-          <h2>Tom Bernaerd</h2>
-          <p>Outer Join · Belgium</p>
+      <div class="contact-details">
+        <div class="contact-person">
+          <img
+            src="/tom-bernaerd.jpg"
+            alt="Tom Bernaerd"
+            width="110"
+            height="110"
+          />
+          <div>
+            <h2>Tom Bernaerd</h2>
+            <p>Outer Join BV</p>
+          </div>
         </div>
+        <address>
+          <p>
+            Snellegemsestraat 90
+            <br />
+            8210 Zedelgem
+            <br />
+            Belgium
+          </p>
+          <p>VAT: BE0768.928.995</p>
+          <p>
+            <a href="mailto:tom@outerjoin.be">tom@outerjoin.be</a>
+            <br />
+            <a href="tel:+32477466814">+32 477 466 814</a>
+          </p>
+        </address>
       </div>
       <div class="prose">
         <h2>A useful first conversation.</h2>
@@ -69,8 +86,25 @@ import Icon from '../components/Icon.astro';
   </section>
 </BaseLayout>
 
+<style>
+  .contact-details address {
+    margin-top: 28px;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+  .contact-details address p + p {
+    margin-top: 16px;
+  }
+  .contact-details address a {
+    text-underline-offset: 4px;
+  }
+</style>
+
 <script>
   const subjects: Record<string, string> = {
+    consulting: 'Let’s discuss SAP and Produmex consulting',
     quality: 'Let’s discuss a QC workflow',
     'quality-demo': 'OuterForge Quality walkthrough',
     integration: 'Let’s discuss an integration',

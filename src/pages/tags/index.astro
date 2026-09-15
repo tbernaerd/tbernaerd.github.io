@@ -39,7 +39,7 @@ const values = taxonomyValues(posts, kind);
     margin: 1rem 0;
   }
   .intro {
-    color: #516678;
+    color: var(--slate);
     font-size: 1.2rem;
     margin-bottom: 2rem;
   }
@@ -47,10 +47,10 @@ const values = taxonomyValues(posts, kind);
     list-style: none;
     padding: 0;
     margin: 3rem 0 0;
-    border-top: 1px solid #c8d5df;
+    border-top: 1px solid var(--line);
   }
   .taxonomy li {
-    border-bottom: 1px solid #c8d5df;
+    border-bottom: 1px solid var(--line);
   }
   .taxonomy li a {
     display: flex;
@@ -58,14 +58,14 @@ const values = taxonomyValues(posts, kind);
     gap: 1rem;
     padding: 1.3rem 0;
     text-decoration: none;
-    color: #193347;
+    color: var(--ink);
     font-size: 1.2rem;
   }
   .taxonomy li a:hover {
-    color: #356a91;
+    color: var(--link-hover);
   }
   .count {
-    color: #6689a3;
+    color: var(--muted);
     font-size: 1rem;
   }
   .sr-only {

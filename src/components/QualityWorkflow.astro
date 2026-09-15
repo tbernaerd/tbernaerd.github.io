@@ -1,0 +1,162 @@
+---
+const steps = [
+  {
+    title: 'Sample & specifications',
+    record: 'Batch-linked test record',
+    detail:
+      'Create samples, print labels and carry the item’s test parameters and limits into the record.',
+  },
+  {
+    title: 'Test & collect evidence',
+    record: 'Results, reports and certificates',
+    detail:
+      'Record internal tests, request external analysis and check supplier CoAs. AI lab-report extraction proposes results for review.',
+  },
+  {
+    title: 'Make the QC decision',
+    record: 'Accepted or routed for review',
+    detail:
+      'Evaluate submitted results against the specification. Failed results and review-required policies route the record to QC review, with attributed decisions.',
+  },
+  {
+    title: 'Update Produmex stock',
+    record: 'Release outcome tracked',
+    detail:
+      'The release job calls the Produmex API to update stock quality status. Its success or failure is recorded separately from QC acceptance.',
+  },
+  {
+    title: 'Generate the CoA',
+    record: 'Stored certificate PDF',
+    detail:
+      'Accepted records feed Certificate of Analysis generation. Required linked results must be finalized before a final certificate can be produced.',
+  },
+];
+---
+
+<div class="quality-workflow">
+  <ol>
+    {steps.slice(0, 3).map((step, i) => (
+      <li>
+        <span class="step-number" aria-hidden="true">
+          {i + 1}
+        </span>
+        <details open>
+          <summary>{step.title}</summary>
+          <p>{step.detail}</p>
+        </details>
+        <small>{step.record}</small>
+      </li>
+    ))}
+  </ol>
+  <div class="after-acceptance">
+    <p class="workflow-note">After acceptance, two separate background jobs:</p>
+    <div class="outcomes">
+      {steps.slice(3).map((step) => (
+        <div>
+          <details open>
+            <summary>{step.title}</summary>
+            <p>{step.detail}</p>
+          </details>
+          <small>{step.record}</small>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+<style>
+  ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 25px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    position: relative;
+    min-width: 0;
+  }
+  li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 48px;
+    width: calc(100% - 23px);
+    border-top: 1px solid var(--connector);
+  }
+  .step-number {
+    display: grid;
+    place-items: center;
+    width: 37px;
+    height: 37px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    color: var(--blue);
+    font-size: 15px;
+    margin-bottom: 22px;
+  }
+  summary {
+    cursor: pointer;
+    font: 500 17px/1.4 var(--heading);
+    letter-spacing: -0.03em;
+    padding-bottom: 10px;
+  }
+  summary::marker {
+    color: var(--blue);
+    font-size: 12px;
+  }
+  summary:focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 4px;
+  }
+  details p {
+    font-size: 15px;
+    padding-bottom: 14px;
+  }
+  small {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .workflow-note {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .outcomes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+  }
+  .outcomes > div {
+    border-left: 2px solid var(--connector);
+    padding-left: 20px;
+  }
+  @media (max-width: 900px) {
+    .outcomes {
+      grid-template-columns: 1fr;
+    }
+    ol {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    li {
+      padding: 0 0 30px 57px;
+    }
+    .step-number {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    li:not(:last-child)::after {
+      left: 18px;
+      top: 47px;
+      width: 0;
+      height: calc(100% - 57px);
+      border-top: 0;
+      border-left: 1px solid var(--connector);
+    }
+  }
+</style>

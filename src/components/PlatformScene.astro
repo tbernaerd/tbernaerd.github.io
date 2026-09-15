@@ -1,0 +1,304 @@
+---
+import Icon from './Icon.astro';
+---
+
+<figure
+  class="platform-scene"
+  aria-label="Quality and bespoke applications share the OuterForge web-based application platform, connected to SAP Business One and Produmex WMS, with scope for external APIs"
+>
+  <div class="application-layer">
+    <div class="layer-heading">
+      <Icon name="grid" />
+      <span>Applications on OuterForge</span>
+    </div>
+    <div class="application-examples">
+      <a href="/solutions/quality-control/">
+        <Icon name="flask" />
+        <span>
+          <strong>Quality</strong>
+          <small>Ready-made QC app</small>
+        </span>
+      </a>
+      <a href="/solutions/bespoke-applications/">
+        <Icon name="code" />
+        <span>
+          <strong>Your application</strong>
+          <small>Bespoke development</small>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="layer-join" aria-hidden="true">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <div class="foundation-layer">
+    <div class="foundation-title">
+      <Icon name="layers" />
+      <div>
+        <strong>OuterForge</strong>
+        <small>The shared web-based application platform</small>
+      </div>
+    </div>
+    <div class="building-blocks">
+      <span>
+        <Icon name="link" /> Connections
+      </span>
+      <span>
+        <Icon name="clock" /> Background jobs
+      </span>
+      <span>
+        <Icon name="users" /> Users & permissions
+      </span>
+      <span>
+        <Icon name="mail" /> Email & notifications
+      </span>
+    </div>
+  </div>
+  <div class="systems-layer">
+    <div>
+      <strong>SAP Business One</strong>
+      <small>Service Layer</small>
+    </div>
+    <div>
+      <strong>Produmex WMS</strong>
+      <small>PMX API</small>
+    </div>
+    <div>
+      <strong>External API</strong>
+      <small>Extend as needed</small>
+    </div>
+  </div>
+  <figcaption>
+    Existing Quality software. A foundation for your next application.
+  </figcaption>
+</figure>
+<style>
+  .platform-scene {
+    margin: 0;
+    padding: 30px 15px;
+    max-width: 550px;
+    width: 100%;
+    justify-self: center;
+  }
+  .application-layer {
+    margin: 0 24px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: var(--surface);
+    padding: 23px;
+    box-shadow: 0 10px 35px #28425d08;
+  }
+  .layer-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    font: 500 15px var(--heading);
+    color: var(--ink);
+  }
+  .layer-heading :global(.icon) {
+    color: var(--blue);
+  }
+  .application-examples {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .application-examples > a {
+    padding: 11px 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    background: var(--mist);
+  }
+  .application-examples a:hover {
+    background: var(--surface-detail);
+  }
+  .application-examples strong {
+    font-weight: 600;
+  }
+  .application-examples small {
+    display: block;
+    color: var(--slate);
+    font-size: 11px;
+    margin-top: 3px;
+  }
+  .application-examples :global(.icon) {
+    width: 17px;
+    height: 17px;
+    color: var(--blue);
+  }
+  .layer-join {
+    height: 27px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 62px;
+  }
+  .layer-join span {
+    width: 1px;
+    background: var(--connector);
+  }
+  .foundation-layer {
+    background: var(--feature-fill);
+    color: var(--on-brand);
+    border-radius: 9px;
+    padding: 25px 28px 20px;
+    box-shadow: 0 15px 35px #28425d14;
+  }
+  .foundation-title {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+  }
+  .foundation-title :global(.icon) {
+    width: 34px;
+    height: 34px;
+    color: var(--pale);
+  }
+  .foundation-title strong {
+    display: block;
+    font: 500 27px var(--heading);
+    letter-spacing: -0.04em;
+  }
+  .foundation-title small {
+    display: block;
+    color: var(--on-brand-muted);
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  .building-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--brand-line);
+    font-size: 14px;
+  }
+  .building-blocks span {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .building-blocks :global(.icon) {
+    width: 17px;
+    height: 17px;
+    color: var(--pale);
+  }
+  .systems-layer {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 17px;
+    margin: 27px 24px 0;
+  }
+  .systems-layer > div {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 8px;
+    border: 1px solid var(--line);
+    background: var(--surface-muted);
+    border-radius: 6px;
+    text-align: center;
+  }
+  .systems-layer > div::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 27px;
+    background: var(--connector);
+    bottom: calc(100% + 1px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .systems-layer strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .systems-layer small {
+    display: block;
+    font-size: 12px;
+    color: var(--slate);
+    margin-top: 3px;
+  }
+  figcaption {
+    color: var(--slate);
+    text-align: center;
+    font-size: 14px;
+    margin-top: 23px;
+  }
+  @media (max-width: 1100px) {
+    .platform-scene {
+      padding: 20px 0;
+    }
+    .application-layer {
+      margin: 0 10px;
+      padding: 18px;
+    }
+    .foundation-layer {
+      padding: 23px 20px;
+    }
+    .systems-layer {
+      margin: 27px 10px 0;
+      gap: 10px;
+    }
+    .application-examples {
+      gap: 7px;
+    }
+    .application-examples > a {
+      font-size: 12px;
+      padding: 10px 7px;
+    }
+    .building-blocks {
+      font-size: 13px;
+      gap: 7px;
+    }
+  }
+  @media (max-width: 380px) {
+    .application-layer {
+      margin: 0 5px;
+      padding: 16px 12px;
+    }
+    .layer-heading {
+      font-size: 13px;
+    }
+    .application-examples {
+      grid-template-columns: 1fr;
+    }
+    .application-examples > a {
+      font-size: 13px;
+    }
+    .foundation-layer {
+      padding: 20px 17px;
+    }
+    .foundation-title {
+      gap: 12px;
+    }
+    .foundation-title strong {
+      font-size: 25px;
+    }
+    .foundation-title small {
+      font-size: 12px;
+    }
+    .building-blocks {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .systems-layer {
+      margin: 27px 5px 0;
+      gap: 8px;
+    }
+    .systems-layer > div {
+      padding: 12px 6px;
+    }
+    .systems-layer strong {
+      font-size: 12px;
+    }
+  }
+</style>

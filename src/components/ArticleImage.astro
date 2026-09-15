@@ -1,0 +1,77 @@
+---
+import type { Post } from '../lib/posts';
+interface Props {
+  image: NonNullable<Post['data']['image']>;
+  thumbnail?: boolean;
+  class?: string;
+}
+const { image, thumbnail = false, class: className } = Astro.props;
+const variants = [
+  { ...image, theme: 'light' },
+  ...(image.dark ? [{ ...image.dark, theme: 'dark' }] : []),
+];
+---
+
+<div
+  class:list={[
+    'article-image',
+    className,
+    { 'has-dark-artwork': !!image.dark },
+  ]}
+>
+  {variants.map((variant) => (
+    <img
+      class:list={{
+        'dark-artwork': variant.theme === 'dark',
+        'light-artwork': variant.theme === 'light',
+      }}
+      src={thumbnail ? (variant.thumbnail ?? variant.src) : variant.src}
+      srcset={
+        variant.thumbnail
+          ? `${variant.thumbnail} 640w, ${variant.src} 1600w`
+          : undefined
+      }
+      sizes={
+        thumbnail
+          ? '(max-width: 640px) calc(100vw - 48px), (max-width: 800px) 100vw, 400px'
+          : '(max-width: 1240px) calc(100vw - 48px), 1132px'
+      }
+      alt={thumbnail ? '' : image.alt}
+      width={thumbnail ? 640 : 1600}
+      height={thumbnail ? 360 : 900}
+      loading={thumbnail ? 'lazy' : 'eager'}
+      decoding="async"
+      fetchpriority={thumbnail ? 'auto' : 'high'}
+    />
+  ))}
+</div>
+
+<style>
+  .article-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .article-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .article-image .dark-artwork {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .has-dark-artwork .light-artwork {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .has-dark-artwork .dark-artwork {
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme])) .has-dark-artwork .light-artwork {
+      display: none;
+    }
+    :global(html:not([data-theme])) .has-dark-artwork .dark-artwork {
+      display: block;
+    }
+  }
+</style>

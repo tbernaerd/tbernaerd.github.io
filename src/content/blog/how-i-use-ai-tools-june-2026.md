@@ -14,8 +14,9 @@
   ],
   "hidden": false,
   "image": {
-    "src": "/assets/2026/1/hero-ai.png",
-    "alt": "How I use AI tools (June 2026)"
+    "src": "/assets/heroes/ai-photo.webp",
+    "thumbnail": "/assets/heroes/ai-photo-thumb.webp",
+    "alt": "A developer’s laptop, monitor and notebook on a sunlit wooden desk."
   }
 }
 ---

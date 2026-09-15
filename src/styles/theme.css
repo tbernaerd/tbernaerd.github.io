@@ -1,0 +1,120 @@
+/* Shared roles keep page, component and article styles in the same palette. */
+:root {
+  color-scheme: light;
+  --page: #fff;
+  --surface: #fff;
+  --section: #edf3f8;
+  --surface-muted: #edf4fa;
+  --surface-detail: #d0e0ee;
+  --muted: #62798f;
+  --line-strong: #afc1cf;
+  --link-hover: #356a91;
+  --connector: #a7bed4;
+  --brand-fill: #4a6481;
+  --brand-hover: #344e6a;
+  --on-brand: #fff;
+  --on-brand-muted: #d7e8f7;
+  --brand-line: #7890a9;
+  --success-bg: #e8f4ee;
+  --success-text: #2a674c;
+  --success-line: #719e86;
+  --warning-bg: #f7f0df;
+  --warning-text: #7b5a16;
+  --warning-line: #ba983f;
+  --danger-bg: #fbefed;
+  --danger-line: #bc7168;
+  --focus: #3679ae;
+  --feature-fill: #4a6481;
+  --closing-bg: #4a6481;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #ededee;
+  --blue: #93b9df;
+  --slate: #bec1c6;
+  --muted: #a5aab2;
+  --line: #34373c;
+  --line-strong: #555b64;
+  --page: #111213;
+  --surface: #1c1e20;
+  --section: #17181a;
+  --surface-muted: #25282c;
+  --surface-detail: #3b4047;
+  --mist: #1a1c1f;
+  --link-hover: #c2dcf5;
+  --connector: #677d93;
+  --brand-fill: #41658b;
+  --brand-hover: #4b739d;
+  --brand-line: #5d7690;
+  --success-bg: #193a30;
+  --success-text: #a2dfbc;
+  --success-line: #6aaa85;
+  --warning-bg: #3b301d;
+  --warning-text: #efd18b;
+  --warning-line: #b89850;
+  --danger-bg: #3c252b;
+  --danger-line: #c78383;
+  --focus: #b1d9ff;
+  --feature-fill: #252a30;
+  --closing-bg: #1a1c1f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --ink: #ededee;
+    --blue: #93b9df;
+    --slate: #bec1c6;
+    --muted: #a5aab2;
+    --line: #34373c;
+    --line-strong: #555b64;
+    --page: #111213;
+    --surface: #1c1e20;
+    --section: #17181a;
+    --surface-muted: #25282c;
+    --surface-detail: #3b4047;
+    --mist: #1a1c1f;
+    --link-hover: #c2dcf5;
+    --connector: #677d93;
+    --brand-fill: #41658b;
+    --brand-hover: #4b739d;
+    --brand-line: #5d7690;
+    --success-bg: #193a30;
+    --success-text: #a2dfbc;
+    --success-line: #6aaa85;
+    --warning-bg: #3b301d;
+    --warning-text: #efd18b;
+    --warning-line: #b89850;
+    --danger-bg: #3c252b;
+    --danger-line: #c78383;
+    --focus: #b1d9ff;
+    --feature-fill: #252a30;
+    --closing-bg: #1a1c1f;
+  }
+}
+
+/* Shiki emits both palettes. Only the selected theme overrides its light fallback. */
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+  color: var(--shiki-dark, var(--ink)) !important;
+  background-color: var(--shiki-dark-bg, var(--surface)) !important;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .astro-code,
+  :root:not([data-theme]) .astro-code span {
+    color: var(--shiki-dark, var(--ink)) !important;
+    background-color: var(--shiki-dark-bg, var(--surface)) !important;
+  }
+}
+
+/* Embedded legacy diagrams retain their original artwork and readable paper. */
+.article-body img[src$='.svg'] {
+  background: #eaf2f9;
+  padding: 12px;
+}
+.diagram-preview img {
+  background: #eaf2f9;
+  border-radius: 3px;
+  padding: 5px;
+}

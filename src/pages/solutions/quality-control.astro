@@ -1,15 +1,43 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import QualityIllustration from '../../components/QualityIllustration.astro';
+import CertificateReview from '../../components/CertificateReview.astro';
+import QualityWorkflow from '../../components/QualityWorkflow.astro';
+import LabReportPreview from '../../components/LabReportPreview.astro';
 import Icon from '../../components/Icon.astro';
-import CTA from '../../components/CTA.astro';
+const features = [
+  {
+    title: 'Define what needs testing.',
+    text: 'Set up item and category templates with test methods, units, limits and qualitative expectations. Define test frequency, internal or external sources and which parameters are required for release.',
+  },
+  {
+    title: 'Keep track of every sample.',
+    text: 'Link samples to batches, print labels and use scanning in the sample workflow. Record quantities, storage and disposal, with the test record carrying its own copy of the specifications.',
+  },
+  {
+    title: 'Work with external labs.',
+    text: 'Create analysis requests, select the required tests and send the request by email with a generated PDF. Keep the lab report and returned results with the request.',
+  },
+  {
+    title: 'Review results with the evidence.',
+    text: 'Evaluate results against specification limits. Route exceptions and review-required records to QC review, with attributed decisions and support for acceptance under deviation.',
+  },
+  {
+    title: 'Release stock through Produmex.',
+    text: 'An accepted QC record can trigger a stock-quality update through the Produmex API. Track whether the release succeeded, including failures that need attention.',
+  },
+  {
+    title: 'Produce your own CoAs.',
+    text: 'Generate Certificates of Analysis from accepted test records. Configure which specifications, results, methods and sources appear, and keep the resulting PDF with the record.',
+  },
+];
 ---
 
 <BaseLayout
-  title="Quality control & batch release"
-  description="Connect samples, test results, certificates and accepted-batch release to SAP Business One and Produmex WMS. Explore a QC workflow built around your operation."
+  title="OuterForge Quality: QC & batch release"
+  description="Ready-made QC software built on OuterForge. Specifications, samples, AI supplier CoA checks, external lab results and batch release, connected to SAP Business One and Produmex WMS."
 >
-  <section class="section">
+  <section class="section quality-hero">
     <div class="wrap feature-grid product-hero">
       <div class="feature-copy">
         <p class="section-note">OuterForge Quality</p>
@@ -19,83 +47,210 @@ import CTA from '../../components/CTA.astro';
           to released stock.
         </h1>
         <p>
-          Samples, results and batch decisions in one web application. Connected
-          to the SAP and Produmex records behind them.
+          Ready-made quality-control and batch-release software, built on the{' '}
+          <a class="inline-platform" href="/outerforge/">
+            OuterForge web-based application platform
+          </a>
+          .
+        </p>
+        <p>
+          Manage specifications, samples, test results and supplier certificates
+          in one application, connected to SAP Business One and Produmex WMS.
+          Configure it for your operation and extend it where needed.
         </p>
         <div class="actions">
-          <a class="button" href="/contact/?interest=quality">
-            Discuss your QC workflow <Icon />
+          <a class="button" href="/contact/?interest=quality-demo">
+            Arrange a demo <Icon />
+          </a>
+          <a class="text-link" href="#document-review">
+            See the AI document check <Icon />
           </a>
         </div>
       </div>
       <div class="feature-bg">
-        <QualityIllustration />
+        <QualityIllustration id="quality-product" />
       </div>
+    </div>
+  </section>
+  <section class="section studio-section" id="document-review">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          Check the certificate
+          <br />
+          against your specification.
+        </h2>
+        <p>
+          AI-assisted supplier document review is built into Quality. Start a
+          check on an attached Certificate of Analysis and keep the findings
+          with its test record.
+        </p>
+      </div>
+      <CertificateReview />
+      <div class="review-explanation">
+        <p>
+          <strong>Spot the differences.</strong> Compare specification limits
+          and methods, identify missing parameters and flag uncertain readings.
+          Check batch references, product identity, dates and authorization
+          details.
+        </p>
+        <p>
+          <strong>Keep the decision with QC.</strong> The check produces
+          findings for review. It does not change test results or release stock.
+          Other documents in a combined PDF are identified; the comparison
+          focuses on the supplier CoA.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap feature-grid">
+      <div class="feature-copy">
+        <h2>
+          Bring lab results in.
+          <br />
+          Keep the analyst in control.
+        </h2>
+        <p>
+          Upload an external lab report as a PDF or image. AI extracts proposed
+          measured results and matches them to the requested tests, highlighting
+          uncertain readings and unit mismatches.
+        </p>
+        <p>
+          Review the suggestions, accept or correct them, then save. This is a
+          separate workflow from the supplier CoA specification check.
+        </p>
+      </div>
+      <LabReportPreview />
     </div>
   </section>
   <section class="section service-area">
     <div class="wrap">
       <div class="section-head">
         <h2>
-          Keep the quality evidence
+          The everyday QC work,
           <br />
-          with the batch.
+          already covered.
         </h2>
         <p>
-          A connected workflow for the lab, the people reviewing results and the
-          warehouse waiting for a decision.
+          Existing application features, configured around your items, tests and
+          review process.
         </p>
       </div>
-      <div class="service-list">
-        <article class="service">
-          <h3>Capture the results.</h3>
-          <p>
-            Keep samples and test results together, with the batch context
-            needed to understand what was tested.
-          </p>
-        </article>
-        <article class="service">
-          <h3>Review with context.</h3>
-          <p>
-            Bring the results and certificates into one place so the people
-            making a quality decision can find the evidence.
-          </p>
-        </article>
-        <article class="service">
-          <h3>Connect the release.</h3>
-          <p>
-            Connect accepted-batch decisions to Produmex stock release, with the
-            handoff scoped to your warehouse workflow.
-          </p>
-        </article>
+      <div class="service-list quality-features">
+        {features.map(({ title, text }) => (
+          <article class="service">
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
   <section class="section studio-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          Follow the batch
+          <br />
+          through the decision.
+        </h2>
+        <p>
+          The lab, reviewers and warehouse use connected records throughout
+          testing, QC review and acceptance.
+        </p>
+      </div>
+      <QualityWorkflow />
+    </div>
+  </section>
+  <section class="section">
     <div class="wrap editorial-split">
       <h2>
-        Your quality process.
+        Ready-made software.
         <br />
-        Your connected workflow.
+        Configured for your operation.
       </h2>
       <div class="prose">
         <p>
-          The application is shaped around your tests, records and handoffs. We
-          start by looking at the process you use today and where it needs to
-          connect to SAP Business One and Produmex WMS.
+          We start with a walkthrough of the existing Quality application.
+          Together, we check your specifications, sample handling, review rules
+          and SAP/Produmex environment.
         </p>
         <p>
-          We then agree the scope of configuration, any additional development,
-          deployment and support. A walkthrough is the next step in assessing
-          the fit.
+          Delivery covers installation, connections, permissions and
+          configuration. Where your operation needs additional functionality, we
+          scope that development on the same OuterForge platform.
         </p>
         <p>
-          <a class="text-link" href="/contact/?interest=quality-demo">
-            Arrange a walkthrough <Icon />
+          Users, email, background processing and audit history come from
+          OuterForge. The quality-control workflow is already built on top.
+        </p>
+        <p>
+          <a class="text-link" href="/outerforge/">
+            Explore the platform behind Quality <Icon />
           </a>
         </p>
       </div>
     </div>
   </section>
-  <CTA />
+  <section class="closing">
+    <div class="wrap">
+      <div>
+        <h2>
+          Walk through Quality
+          <br />
+          with your process in mind.
+        </h2>
+        <p>
+          See the application and discuss the fit for your lab, review process
+          and warehouse.
+        </p>
+      </div>
+      <a class="button" href="/contact/?interest=quality-demo">
+        Arrange a demo <Icon />
+      </a>
+    </div>
+  </section>
 </BaseLayout>
+<style>
+  .quality-hero {
+    padding-top: 75px;
+  }
+  .quality-hero .section-note {
+    margin-top: 0;
+  }
+  .inline-platform {
+    color: var(--blue);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .quality-hero .actions {
+    gap: 20px;
+  }
+  .quality-hero .actions .text-link {
+    margin-top: 0;
+    font-size: 16px;
+  }
+  .review-explanation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 30px;
+    font-size: 16px;
+  }
+  .review-explanation strong {
+    color: var(--ink);
+  }
+  .quality-features {
+    gap: 45px;
+  }
+  @media (max-width: 800px) {
+    .review-explanation {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+    .quality-hero {
+      padding-top: 45px;
+    }
+  }
+</style>

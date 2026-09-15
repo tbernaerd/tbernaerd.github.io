@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleImage from '../../components/ArticleImage.astro';
 import {
   getAllPosts,
   postUrl,
@@ -83,14 +84,9 @@ const schema = {
       )}
     </header>
     {post.data.image && (
-      <img
-        class="article-hero"
-        src={post.data.image.src}
-        alt={post.data.image.alt}
-        width="1200"
-        height="630"
-        fetchpriority="high"
-      />
+      <div class="article-hero">
+        <ArticleImage image={post.data.image} />
+      </div>
     )}
     <div class="article-grid">
       <aside class="contents">
@@ -130,6 +126,7 @@ const schema = {
 <style>
   .article-shell {
     max-width: 1240px;
+    padding-inline: clamp(24px, 4vw, 54px);
   }
   .article-header {
     max-width: 870px;
@@ -147,7 +144,7 @@ const schema = {
   .standfirst {
     max-width: 760px;
     font-size: 1.25rem;
-    color: #516678;
+    color: var(--slate);
     line-height: 1.6;
   }
   .byline {
@@ -156,30 +153,30 @@ const schema = {
     flex-wrap: wrap;
     margin-top: 1.7rem;
     font-size: 0.95rem;
-    color: #516678;
+    color: var(--slate);
   }
   .byline span:first-child {
     font-weight: 600;
-    color: #193347;
+    color: var(--ink);
   }
   .updated {
     font-size: 0.85rem;
-    color: #516678;
+    color: var(--slate);
     margin: 0.4rem 0 0;
   }
   .article-hero {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 460px;
-    object-fit: cover;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
     border-radius: 6px;
     margin-bottom: 3.5rem;
   }
   .article-grid {
     display: grid;
-    grid-template-columns: 230px minmax(0, 1fr);
-    gap: 3.5rem;
+    grid-template-columns: 220px minmax(0, 720px);
+    gap: 4rem;
     align-items: start;
   }
   .contents {
@@ -199,66 +196,92 @@ const schema = {
     list-style: none;
     padding: 0;
     margin: 0;
-    border-left: 1px solid #c8d5df;
+    border-left: 1px solid var(--line);
   }
   .contents li {
     margin: 0.75rem 0;
     padding-left: 1rem;
   }
   .contents a {
-    color: #516678;
+    color: var(--slate);
     text-decoration: none;
     line-height: 1.45;
     display: block;
   }
   .contents a:hover {
-    color: #234b6a;
+    color: var(--link-hover);
     text-decoration: underline;
   }
   .article-body {
     min-width: 0;
-    font-size: 1.08rem;
-    line-height: 1.8;
-    color: #304c60;
+    max-width: 76ch;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--slate);
     overflow-wrap: anywhere;
   }
   .article-body :global(h2) {
-    font-size: clamp(1.65rem, 2.4vw, 2rem);
-    line-height: 1.3;
-    margin: 3rem 0 1.1rem;
-    color: #193347;
+    font-size: clamp(1.75rem, 2.6vw, 2.15rem);
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 4rem 0 1.25rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line-strong);
+    color: var(--ink);
     letter-spacing: -0.04em;
     clear: both;
     scroll-margin-top: 110px;
   }
   .article-body :global(h2:first-child) {
     margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
   }
   .article-body :global(h3) {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    font-weight: 600;
     line-height: 1.4;
-    margin: 2rem 0 1rem;
-    color: #193347;
+    margin: 2.75rem 0 0.85rem;
+    color: var(--ink);
     scroll-margin-top: 110px;
+  }
+  .article-body :global(h4) {
+    font-family: var(--body);
+    font-size: 1.125rem;
+    font-weight: 650;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--ink);
+    margin: 2rem 0 0.5rem;
+    scroll-margin-top: 110px;
+  }
+  .article-body :global(h2 + h3) {
+    margin-top: 1.5rem;
+  }
+  .article-body :global(h3 + h4) {
+    margin-top: 1.25rem;
+  }
+  .article-body :global(h4 + p) {
+    margin-top: 0.5rem;
   }
   .article-body :global(p) {
     margin: 1.15rem 0;
   }
   .article-body :global(a) {
-    color: #2e668e;
+    color: var(--link-hover);
     text-underline-offset: 3px;
   }
   .article-body :global(a:hover) {
-    color: #193347;
+    color: var(--ink);
   }
   .article-body :global(strong) {
-    color: #193347;
+    color: var(--ink);
   }
   .article-body :global(img) {
     display: block;
     max-width: 100%;
     height: auto;
-    border: 1px solid #dae3ea;
+    border: 1px solid var(--line);
     border-radius: 4px;
     margin: 1.8rem auto;
   }
@@ -278,7 +301,7 @@ const schema = {
   }
   .article-body :global(pre) {
     padding: 1.25rem;
-    border: 1px solid #d3dee6;
+    border: 1px solid var(--line);
     border-radius: 5px;
     overflow-x: auto;
     font-size: 0.8rem;
@@ -290,24 +313,26 @@ const schema = {
     font-size: 0.88em;
   }
   .article-body :global(:not(pre) > code) {
-    background: #edf2f6;
+    background: var(--surface-muted);
     padding: 0.12em 0.3em;
     border-radius: 3px;
-    color: #244d6b;
+    color: var(--link-hover);
   }
   .article-body :global(blockquote) {
     margin: 1.5rem 0;
-    border-left: 3px solid #94afc3;
+    border-left: 3px solid var(--line-strong);
     padding: 0.1rem 1.3rem;
-    color: #38596f;
+    color: var(--slate);
   }
   .article-body :global(aside[class^='prompt-']) {
-    background: #eef4f8;
-    border-left: 3px solid #6e96b4;
+    background: var(--surface-muted);
+    border-left: 3px solid var(--line-strong);
     padding: 0.3rem 1.25rem;
     margin: 1.8rem 0;
     border-radius: 0 5px 5px 0;
     clear: both;
+    font-size: 1rem;
+    line-height: 1.65;
   }
   .article-body :global(aside blockquote) {
     border: 0;
@@ -315,16 +340,16 @@ const schema = {
     padding: 0;
   }
   .article-body :global(aside.prompt-warning) {
-    background: #faf6e9;
-    border-color: #ba983f;
+    background: var(--warning-bg);
+    border-color: var(--warning-line);
   }
   .article-body :global(aside.prompt-danger) {
-    background: #fbefed;
-    border-color: #bc7168;
+    background: var(--danger-bg);
+    border-color: var(--danger-line);
   }
   .article-body :global(aside.prompt-tip) {
-    background: #edf6f1;
-    border-color: #719e86;
+    background: var(--success-bg);
+    border-color: var(--success-line);
   }
   .article-body :global(table) {
     display: block;
@@ -337,13 +362,13 @@ const schema = {
   .article-body :global(th),
   .article-body :global(td) {
     padding: 0.65rem 0.9rem;
-    border: 1px solid #cad7e1;
+    border: 1px solid var(--line);
     text-align: left;
     min-width: 100px;
   }
   .article-body :global(th) {
-    background: #edf3f7;
-    color: #193347;
+    background: var(--surface-muted);
+    color: var(--ink);
     font-weight: 600;
   }
   .article-body :global(ul),
@@ -351,10 +376,18 @@ const schema = {
     padding-left: 1.4rem;
   }
   .article-body :global(li) {
-    margin: 0.45rem 0;
+    margin: 0.65rem 0;
+    padding-left: 0.25rem;
+  }
+  .article-body :global(li::marker) {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .article-body :global(li > p) {
+    margin: 0.4rem 0;
   }
   .article-end {
-    border-top: 1px solid #c8d5df;
+    border-top: 1px solid var(--line);
     padding-top: 2rem;
     margin-top: 3rem;
     clear: both;
@@ -366,13 +399,13 @@ const schema = {
   }
   .tags a {
     padding: 0.25rem 0.7rem;
-    border: 1px solid #c8d5df;
+    border: 1px solid var(--line);
     border-radius: 3px;
     font-size: 0.85rem;
     text-decoration: none;
   }
   .tags a:hover {
-    background: #edf3f7;
+    background: var(--surface-muted);
   }
   @media (max-width: 900px) {
     .article-grid {
@@ -383,7 +416,7 @@ const schema = {
       position: static;
       max-height: none;
       padding: 1rem 1.25rem;
-      background: #edf3f7;
+      background: var(--surface-muted);
       border-radius: 5px;
     }
     .contents ol {
@@ -401,7 +434,11 @@ const schema = {
       columns: 1;
     }
     .article-body {
-      font-size: 1.02rem;
+      font-size: 1.0625rem;
+    }
+    .article-body :global(h2) {
+      margin-top: 3rem;
+      padding-top: 1.35rem;
     }
     .article-body :global(img.left),
     .article-body :global(img.right) {

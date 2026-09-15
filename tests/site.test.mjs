@@ -204,3 +204,27 @@ test('the migration worker removes only legacy caches and retires its registrati
     'Retired worker should not intercept requests',
   );
 });
+
+test('theme selection loads before page content and code blocks include both palettes', async () => {
+  const { load } = await import('cheerio');
+  for (const route of [
+    'index.html',
+    'outerforge/index.html',
+    'insights/index.html',
+    '404.html',
+  ]) {
+    const $ = load(read(route));
+    assert.equal($('[data-theme-picker]').length, 1, route);
+    assert.ok(
+      $('head script')
+        .toArray()
+        .some((s) => $(s).html()?.includes('outerjoin-theme')),
+      route,
+    );
+    assert.equal($('footer button[data-theme-picker]').length, 1, route);
+    assert.equal($('header [data-theme-picker]').length, 0, route);
+  }
+  const $ = load(read('posts/produmex-wms-database-structure/index.html'));
+  assert.match($('.astro-code').first().attr('style'), /--shiki-dark-bg:/);
+  assert.ok($('.astro-code span[style*="--shiki-dark:"]').length > 0);
+});

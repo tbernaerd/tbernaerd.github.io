@@ -1,5 +1,12 @@
 # Astro studio implementation plan
 
+## Controlling instruction: NOT LIVE, 2026-09-14
+
+Tom corrected the release interpretation: the redesign must NOT be live yet. The agent missed that correction and deployed prematurely. Restoring the previous Jekyll site via main commit `3e57962` (tree matches `8959a0f`). Astro work remains locally in `internal/tbernaerd.github.io-prototype`, branch `feat/astro-studio`, through `155159b`. No further publication or pushes without fresh explicit release approval. The picking article remains unhidden in the local Astro version.
+
+Rollback deployment: https://github.com/tbernaerd/tbernaerd.github.io/actions/runs/34874664047. Rollback succeeded and a fresh HTTPS request confirms Jekyll is restored. Browser HTTP caches may require a hard refresh. Earlier publication-approved/live entries below are superseded.
+
+
 Goal: turn the approved Connected studio prototype (A) into a maintainable static Astro website, preserving the existing blog and legacy URLs.
 
 Design reference: `prototype/index.html?variant=A`; commercial brief: `../luna-commercial/website-redesign.md` in the surrounding knowledge base. User approved A on 2026-09-14. Subsequent explicit instructions authorize publishing to outerjoin.be and unhiding the picking article. This supersedes the earlier local-only restriction.

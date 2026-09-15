@@ -16,7 +16,12 @@
     "stock-allocation",
     "picklist"
   ],
-  "hidden": false
+  "hidden": false,
+  "image": {
+    "src": "/assets/heroes/picking-photo.webp",
+    "thumbnail": "/assets/heroes/picking-photo-thumb.webp",
+    "alt": "A warehouse worker selecting a carton from orange pallet racks."
+  }
 }
 ---
 <aside class="prompt-info">
@@ -45,8 +50,12 @@ Standard SAP Business One has no proposal stage. You go from a sales order to pi
 
 The Produmex [picklist proposal](https://wiki.produmex.name/doku.php?id=implementation:wms:picklistproposal) solves both of these problems:
 
-1. **It checks availability.** The proposal evaluates whether there is enough stock in the warehouse that meets all the criteria: right quality status, not expired, not locked for someone else.
-2. **It locks the stock.** Once a proposal is generated, the allocated stock is reserved for that sales order. No other picklist proposal or manual allocation can claim it.
+1. **It checks availability.**
+
+   The proposal evaluates whether there is enough stock in the warehouse that meets all the criteria: right quality status, not expired, not locked for someone else.
+2. **It locks the stock.**
+
+   Once a proposal is generated, the allocated stock is reserved for that sales order. No other picklist proposal or manual allocation can claim it.
 
 This is the stage where **batch selection** happens. The system determines which batch should be picked: typically the one with the earliest best-before date (BBD), following FEFO principles (First Expired, First Out). The physical location where that batch sits is deliberately left unresolved at this point. More on why later.
 
@@ -75,7 +84,7 @@ Locks operate at four levels of granularity:
 
 ### When locks are created
 
-**System-generated locks:**
+#### System-generated locks
 
 | Trigger | Lock level | Linked to |
 |---------|-----------|-----------|
@@ -85,7 +94,9 @@ Locks operate at four levels of granularity:
 | Picklist (line) status set to `Ready` | Detail | Base document |
 | Item picked (ad hoc picking) | Detail | Base document |
 
-**User-created locks** can be created through:
+#### User-created locks
+
+These can be created through:
 - The **Stock Allocation screen**: Batch or LUID level, linked to a customer or base document
 - The **PMX Inventory Report**: Select a stock line, go to Locking, and add a lock
 - **Locking in advance**: LUID level, linked to a customer. Typically created right after reception for products with a shippable quality status
@@ -155,17 +166,29 @@ This is arguably the single most impactful configuration decision in the entire 
 
 The available options:
 
-**`FEFO_PickLocation`** -- First Expired, First Out. This is the most common choice and the safe default. When "Prioritize pick locations over bulk locations?" is enabled, stock on pick locations is proposed before stock in bulk storage for batches with the same BBD. This reduces the need for replenishment moves.
+#### `FEFO_PickLocation`
 
-**`FEFO_ITRI_PickLocation`** -- Similar to above, but sorts by ITRI key (batch number + second batch number + BBD combination) instead of BBD alone. Useful when multiple batches share the same best-before date and you need a deterministic tiebreaker.
+First Expired, First Out. This is the most common choice and the safe default. When "Prioritize pick locations over bulk locations?" is enabled, stock on pick locations is proposed before stock in bulk storage for batches with the same BBD. This reduces the need for replenishment moves.
 
-**`LUID`** -- Groups allocation by pallet. Stock without a LUID is proposed first, then each LUID in order, with BBD and batch number as tiebreakers. Locks are created at LUID level instead of Batch level. Use this when the warehouse works in whole pallets and you want the proposal to commit to specific LUIDs early.
+#### `FEFO_ITRI_PickLocation`
 
-**`Bulk,Full LUID,LUID,BBD,Itri`** -- Prioritizes bulk locations, then full pallets, then individual LUIDs, then BBD, then ITRI key. Designed for warehouses where emptying bulk storage takes priority. Less common, but valuable in high-volume environments with active replenishment flows.
+Similar to above, but sorts by ITRI key (batch number + second batch number + BBD combination) instead of BBD alone. Useful when multiple batches share the same best-before date and you need a deterministic tiebreaker.
 
-**`Bulk,Full LUID,BBD,Itri,LUID`** -- Similar, but BBD takes priority over individual LUID selection within the same tier.
+#### `LUID`
 
-**`CustomizedCode`** -- The escape hatch. Accepts a custom SQL ORDER BY clause for full control over sort priority. Available columns include `Quantity`, `ItemCode`, `QualityStatusCode`, `BatchNumber`, `BestBeforeDate`, and others. Test thoroughly.
+Groups allocation by pallet. Stock without a LUID is proposed first, then each LUID in order, with BBD and batch number as tiebreakers. Locks are created at LUID level instead of Batch level. Use this when the warehouse works in whole pallets and you want the proposal to commit to specific LUIDs early.
+
+#### `Bulk,Full LUID,LUID,BBD,Itri`
+
+Prioritizes bulk locations, then full pallets, then individual LUIDs, then BBD, then ITRI key. Designed for warehouses where emptying bulk storage takes priority. Less common, but valuable in high-volume environments with active replenishment flows.
+
+#### `Bulk,Full LUID,BBD,Itri,LUID`
+
+Similar, but BBD takes priority over individual LUID selection within the same tier.
+
+#### `CustomizedCode`
+
+The escape hatch. Accepts a custom SQL ORDER BY clause for full control over sort priority. Available columns include `Quantity`, `ItemCode`, `QualityStatusCode`, `BatchNumber`, `BestBeforeDate`, and others. Test thoroughly.
 
 <aside class="prompt-tip">
 
@@ -222,19 +245,19 @@ Only when the picker is about to start does the system commit to a specific loca
 
 There are several ways a picklist transitions to `Ready`, configured on the **Picklist Controller** in the [Extension Parameters](https://wiki.produmex.name/doku.php?id=implementation:wms:extensionparameters):
 
-**"Only pick items on location on same or lower level as dock?"**
+#### Only pick items on location on same or lower level as dock?
 
 Auto-sets to `Ready` on creation. The available locations are already constrained to those under the dock, so the system resolves them immediately.
 
-**"Auto select the wave?"**
+#### Auto select the wave?
 
 Picklists in a wave are set to `Ready` when the wave is opened. A **wave** groups multiple picklists (typically for the same route or shipping window) so they can be released and worked together.
 
-**"Make picklist ready before print?"**
+#### Make picklist ready before print?
 
 Set to `Ready` during printing.
 
-**"Make picklist ready for selected line?"**
+#### Make picklist ready for selected line?
 
 Each line stays `NotReady` until the picker selects it on the scanner. This is the most granular version of the late-locking philosophy. Even within a single picklist, only the line the picker is actively working on gets a location lock. Every other line remains flexible.
 

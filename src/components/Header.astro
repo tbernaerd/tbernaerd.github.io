@@ -1,45 +1,59 @@
 ---
 import Icon from './Icon.astro';
 const links = [
-  ['Solutions', '/solutions/'],
+  ['Services', '/solutions/'],
   ['OuterForge', '/outerforge/'],
+  ['Quality', '/solutions/quality-control/'],
   ['Insights', '/insights/'],
   ['About', '/about/'],
   ['Let’s talk', '/contact/'],
 ];
-const active = (href: string) => Astro.url.pathname.startsWith(href);
+const active = (href: string) =>
+  href === '/solutions/'
+    ? Astro.url.pathname.startsWith(href) &&
+      !Astro.url.pathname.startsWith('/solutions/quality-control/')
+    : Astro.url.pathname.startsWith(href);
 ---
 
 <div class="header-shell">
   <header class="header wrap">
     <a href="/" aria-label="Outer Join home">
       <img
-        class="logo"
+        class="logo logo-light"
         src="/outerjoin.svg"
         alt="Outer Join"
         width="325"
         height="160"
       />
+      <img
+        class="logo logo-dark"
+        src="/outerjoin-dark.svg"
+        alt="Outer Join"
+        width="325"
+        height="160"
+      />
     </a>
-    <nav class="nav" aria-label="Main navigation">
-      {links.map(([label, href], i) => (
-        <a
-          href={href}
-          class:list={[i === 4 && 'button']}
-          aria-current={active(href) ? 'page' : undefined}
-        >
-          {label}
-        </a>
-      ))}
-    </nav>
-    <button
-      class="menu-toggle"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-      aria-label="Open menu"
-    >
-      <Icon name="menu" />
-    </button>
+    <div class="header-actions">
+      <nav class="nav" aria-label="Main navigation">
+        {links.map(([label, href]) => (
+          <a
+            href={href}
+            class:list={[href === '/contact/' && 'button']}
+            aria-current={active(href) ? 'page' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </nav>
+      <button
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open menu"
+      >
+        <Icon name="menu" />
+      </button>
+    </div>
   </header>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
     {links.map(([label, href]) => (
@@ -73,3 +87,38 @@ const active = (href: string) => Astro.url.pathname.startsWith(href);
     if (event.matches) setOpen(false);
   });
 </script>
+
+<style>
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .logo-dark {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .logo-light {
+    display: none;
+  }
+  :global(html[data-theme='dark']) .logo-dark {
+    display: block;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme])) .logo-light {
+      display: none;
+    }
+    :global(html:not([data-theme])) .logo-dark {
+      display: block;
+    }
+  }
+  @media (max-width: 1100px) {
+    .header-actions {
+      gap: 14px;
+    }
+  }
+  @media (max-width: 800px) {
+    .header-actions {
+      gap: 12px;
+    }
+  }
+</style>

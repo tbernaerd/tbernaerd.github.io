@@ -12,7 +12,7 @@ const posts = await getListedPosts();
   <section class="wrap section insights">
     <p class="section-note">Notes from the work</p>
     <h1>
-      Useful things,
+      Useful insights,
       <br />
       <span>written down.</span>
     </h1>
@@ -180,12 +180,12 @@ const posts = await getListedPosts();
     margin: 1.3rem 0;
   }
   .insights h1 span {
-    color: #547a98;
+    color: var(--blue);
   }
   .intro {
     max-width: 620px;
     font-size: 1.2rem;
-    color: #516678;
+    color: var(--slate);
   }
   .browse {
     display: flex;
@@ -209,41 +209,41 @@ const posts = await getListedPosts();
   .search input {
     width: 100%;
     min-width: 0;
-    border: 1px solid #afc1cf;
+    border: 1px solid var(--line-strong);
     padding: 0.85rem 1rem;
     border-radius: 4px;
-    background: white;
+    background: var(--surface);
     font: inherit;
-    color: #193347;
+    color: var(--ink);
   }
   .search button {
-    border: 1px solid #afc1cf;
+    border: 1px solid var(--line-strong);
     border-radius: 4px;
-    background: #e9f0f5;
+    background: var(--surface-muted);
     padding: 0 1rem;
     font: inherit;
     cursor: pointer;
   }
   .search input:focus-visible,
   .search button:focus-visible {
-    outline: 3px solid #547a98;
+    outline: 3px solid var(--blue);
     outline-offset: 3px;
   }
   #search-status {
     font-size: 0.9rem;
-    color: #516678;
+    color: var(--slate);
     margin: 0.6rem 0;
   }
   #search-results :global(.search-result) {
     padding: 2rem 0;
-    border-top: 1px solid #c8d5df;
+    border-top: 1px solid var(--line);
   }
   #search-results :global(h2) {
     font-size: 1.6rem;
     margin: 0.5rem 0;
   }
   #search-results :global(a) {
-    color: #193347;
+    color: var(--ink);
     text-decoration: none;
   }
   #search-results :global(a:hover) {
@@ -251,9 +251,9 @@ const posts = await getListedPosts();
   }
   #search-results :global(time) {
     font-size: 0.9rem;
-    color: #516678;
+    color: var(--slate);
   }
   #search-results :global(p) {
-    color: #516678;
+    color: var(--slate);
   }
 </style>

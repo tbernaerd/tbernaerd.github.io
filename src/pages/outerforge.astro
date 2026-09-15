@@ -1,102 +1,199 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ConnectionScene from '../components/ConnectionScene.astro';
-import QualityIllustration from '../components/QualityIllustration.astro';
+import PlatformScene from '../components/PlatformScene.astro';
+import PlatformOperations from '../components/PlatformOperations.astro';
 import Icon from '../components/Icon.astro';
 import CTA from '../components/CTA.astro';
+const capabilities = [
+  {
+    icon: 'link',
+    title: 'SAP and Produmex connections',
+    text: 'Read and update SAP Business One records through the Service Layer. Use the Produmex API for stock-quality changes, stock movements and label printing. Additional connections can be developed for other systems.',
+  },
+  {
+    icon: 'users',
+    title: 'Users, roles and permissions',
+    text: 'Manage accounts, assign roles and control access to application features. Password resets, account deactivation and permission checks are part of the platform.',
+  },
+  {
+    icon: 'clock',
+    title: 'Background jobs you can follow',
+    text: 'Queue work such as stock release, certificate generation and document checks. Track each job’s status, inspect failures and retry work that could not complete.',
+  },
+  {
+    icon: 'mail',
+    title: 'Email and notifications',
+    text: 'Send templated emails and in-app notifications from a workflow. Keep outgoing messages linked to their records, with delivery history and sent or failed status.',
+  },
+  {
+    icon: 'document',
+    title: 'Documents and change history',
+    text: 'Attach files to the records they belong to. Capture who changed a record and what changed, so the evidence stays with the work.',
+  },
+  {
+    icon: 'mcp',
+    title: 'Application data for AI assistants',
+    text: 'The built-in MCP server gives compatible assistants read-only access through the user’s account and permissions. Claude Desktop support lets you query QC records, stock and SAP documents or prepare summaries.',
+  },
+];
 ---
 
 <BaseLayout
-  title="OuterForge"
-  description="The foundation behind Outer Join’s integrated web applications. Connect SAP Business One and Produmex, then build the functionality your business needs."
+  title="OuterForge web-based application platform"
+  description="OuterForge is the web-based application platform behind Quality and bespoke applications. Existing SAP Business One Service Layer and Produmex API connections, users, jobs, email and MCP access."
 >
   <section class="hero-a wrap">
     <div>
       <p class="section-note">OuterForge · Built by Outer Join</p>
-      <h1>
-        Build on what
-        <br />
-        already works.
-      </h1>
+      <h1>A web-based application platform.</h1>
       <p class="intro">
-        A foundation for web applications that fill the gaps in your business
-        software. Connected to your systems. Shaped around your work.
+        Existing connections to SAP Business One through its Service Layer and
+        to the Produmex API. User management, email and background jobs built
+        in.
+      </p>
+      <p class="platform-intro">
+        OuterForge Quality is our ready-made QC application on this platform. We
+        use the same foundation to build bespoke applications for other
+        workflows.
       </p>
       <div class="actions">
-        <a class="button" href="/contact/?interest=outerforge">
-          Discuss your application <Icon />
+        <a class="button" href="/solutions/quality-control/">
+          Explore Quality <Icon />
+        </a>
+        <a class="text-link" href="/solutions/bespoke-applications/">
+          Build an application <Icon />
         </a>
       </div>
     </div>
-    <ConnectionScene />
+    <PlatformScene />
   </section>
   <section class="section studio-section">
     <div class="wrap">
       <div class="section-head">
-        <h2>
-          One foundation.
-          <br />
-          Applications that fit.
-        </h2>
+        <h2>Already in the platform.</h2>
         <p>
-          OuterForge provides the shared building blocks behind the applications
-          we deliver.
+          The application’s screens and business rules sit on shared
+          capabilities. Here is what that foundation provides.
         </p>
       </div>
-      <div class="service-list">
-        <article class="service">
-          <div class="service-icon">
-            <Icon name="link" />
-          </div>
-          <h3>Existing connections.</h3>
-          <p>
-            SAP Business One Service Layer and PMX API connections provide
-            access to the systems your business already runs.
-          </p>
-        </article>
-        <article class="service">
-          <div class="service-icon">
-            <Icon name="clock" />
-          </div>
-          <h3>Work in the background.</h3>
-          <p>
-            A background jobs system supports work that needs to run beyond a
-            single interaction in the application.
-          </p>
-        </article>
-        <article class="service">
-          <div class="service-icon">
-            <Icon name="code" />
-          </div>
-          <h3>Built around the task.</h3>
-          <p>
-            We develop the interface and functionality your workflow needs, with
-            scope for further connections as requirements grow.
-          </p>
-        </article>
+      <div class="service-list platform-capabilities">
+        {capabilities.map(({ icon, title, text }) => (
+          <article class="service">
+            <div class="service-icon">
+              <Icon name={icon} />
+            </div>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
   <section class="section">
     <div class="wrap feature-grid">
       <div class="feature-copy">
-        <p class="section-note">See the foundation at work</p>
         <h2>
-          Connected quality.
-          <br />A practical starting point.
+          See what happened.
+          <br />
+          Follow up when it fails.
         </h2>
         <p>
-          Quality control and batch release bring samples, test results and
-          certificates into a workflow linked to SAP and Produmex.
+          A stock release, an outgoing email or a generated certificate has an
+          outcome. Job status and linked history make that outcome visible to
+          the people responsible.
         </p>
-        <a class="text-link" href="/solutions/quality-control/">
-          Explore OuterForge Quality <Icon />
-        </a>
+        <p>
+          These features are shared by applications on OuterForge. The
+          QC-specific rules, tests and review process live in Quality.
+        </p>
       </div>
-      <div class="feature-bg">
-        <QualityIllustration />
+      <PlatformOperations />
+    </div>
+  </section>
+  <section class="section studio-section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          Applications built
+          <br />
+          on OuterForge.
+        </h2>
+        <p>
+          Choose existing Quality software or have us develop the application
+          your operation needs.
+        </p>
+      </div>
+      <div class="application-offers">
+        <article>
+          <Icon name="flask" />
+          <p class="offer-kind">Ready-made application</p>
+          <h3>OuterForge Quality</h3>
+          <p>
+            Specifications, samples, internal and external testing, AI supplier
+            certificate checks and batch release. Connected to SAP and Produmex,
+            configured for your operation.
+          </p>
+          <a class="text-link" href="/solutions/quality-control/">
+            See the Quality application <Icon />
+          </a>
+        </article>
+        <article>
+          <Icon name="code" />
+          <p class="offer-kind">Bespoke development</p>
+          <h3>Your application</h3>
+          <p>
+            We define the workflow with you, then build its interface and
+            business rules on OuterForge. Use the existing connections and add
+            further integrations where needed.
+          </p>
+          <a class="text-link" href="/solutions/bespoke-applications/">
+            Discuss bespoke development <Icon />
+          </a>
+        </article>
       </div>
     </div>
   </section>
   <CTA />
 </BaseLayout>
+<style>
+  .platform-intro {
+    margin-top: 18px;
+    max-width: 480px;
+    font-size: 18px;
+  }
+  .platform-capabilities {
+    gap: 42px;
+  }
+  .application-offers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .application-offers article {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 28px;
+  }
+  .application-offers article > :global(.icon) {
+    color: var(--blue);
+    width: 28px;
+    height: 28px;
+    margin-bottom: 18px;
+  }
+  .offer-kind {
+    color: var(--blue);
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .application-offers h3 {
+    margin-bottom: 17px;
+  }
+  .application-offers a {
+    margin-top: 24px;
+  }
+  @media (max-width: 800px) {
+    .application-offers {
+      grid-template-columns: 1fr;
+      gap: 38px;
+    }
+  }
+</style>

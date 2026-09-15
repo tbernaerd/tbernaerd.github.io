@@ -2,30 +2,30 @@
 import Icon from './Icon.astro';
 const services = [
   {
-    icon: 'code',
-    title: 'Applications that fit',
-    description:
-      'A focused web application shaped around your people, processes and the work your existing software leaves uncovered.',
-    url: '/solutions/bespoke-applications/',
-  },
-  {
-    icon: 'link',
-    title: 'Systems that connect',
-    description:
-      'Connect the application to SAP Business One and Produmex, so your workflow can use the data already there.',
-    url: '/solutions/integrations/',
-  },
-  {
     icon: 'flask',
-    title: 'Quality that flows',
+    title: 'OuterForge Quality',
     description:
-      'Samples, results, certificates and batch release brought together in a connected QC workflow.',
+      'Ready-made QC software on OuterForge. Manage specifications, samples, supplier certificates and batch release, connected to SAP Business One and Produmex.',
     url: '/solutions/quality-control/',
+  },
+  {
+    icon: 'consult',
+    title: 'Logistics consulting',
+    description:
+      'Hands-on help with technical issues, workflow decisions and focused improvements to the systems you already run.',
+    url: '/solutions/consulting/',
+  },
+  {
+    icon: 'code',
+    title: 'Bespoke applications',
+    description:
+      'Web applications built on OuterForge for the work your ERP leaves uncovered. Existing connections, users and background jobs give us a foundation to build on.',
+    url: '/solutions/bespoke-applications/',
   },
 ];
 ---
 
-<div class="service-list">
+<div class="service-list studio-services">
   {services.map((service) => (
     <article class="service">
       <div class="service-icon">
@@ -43,3 +43,16 @@ const services = [
     </article>
   ))}
 </div>
+
+<style>
+  .studio-services {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px;
+  }
+  @media (max-width: 800px) {
+    .studio-services {
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+  }
+</style>

@@ -1,0 +1,386 @@
+---
+import Icon from './Icon.astro';
+const comparisons = [
+  {
+    key: 'moisture',
+    name: 'Moisture',
+    expected: '≤ 5.0%',
+    found: '≤ 5.0%',
+    status: 'Matches',
+    tone: 'match',
+    detail:
+      'The supplier’s moisture limit agrees with the expected specification.',
+  },
+  {
+    key: 'salt',
+    name: 'Salt',
+    expected: '18–22%',
+    found: '15–25%',
+    status: 'Different limit',
+    tone: 'difference',
+    detail:
+      'The supplier allows a wider salt range. Quality flags the difference for your review.',
+  },
+  {
+    key: 'yeast',
+    name: 'Yeasts & moulds',
+    expected: '≤ 100 cfu/g',
+    found: 'Not listed',
+    status: 'Missing',
+    tone: 'missing',
+    detail:
+      'An expected parameter is absent from the certificate. The missing specification is called out explicitly.',
+  },
+];
+---
+
+<figure class="certificate-review">
+  <figcaption>
+    <Icon name="document" />
+    <span>Supplier certificate review</span>
+    <small>Illustrative example · fictional data</small>
+  </figcaption>
+  <div class="review-workspace">
+    <div class="supplier-document">
+      <div class="document-heading">
+        <span>Supplier document</span>
+        <Icon name="document" />
+      </div>
+      <h3>Certificate of Analysis</h3>
+      <p class="document-product">Herb seasoning blend</p>
+      <dl class="document-meta">
+        <div>
+          <dt>Supplier lot</dt>
+          <dd>HB-260914</dd>
+        </div>
+        <div>
+          <dt>Analysis date</dt>
+          <dd>14 Sep 2026</dd>
+        </div>
+      </dl>
+      <div class="document-columns">
+        <span>Parameter</span>
+        <span>Specification</span>
+      </div>
+      <div class="document-row" data-source="moisture">
+        <span>Moisture</span>
+        <strong>≤ 5.0%</strong>
+      </div>
+      <div class="document-row" data-source="salt">
+        <span>Salt</span>
+        <strong>15–25%</strong>
+      </div>
+      <p class="absent-source" data-source="yeast">
+        No specification for yeasts & moulds appears on this certificate.
+      </p>
+      <div class="document-signoff">
+        <span>Quality department</span>
+        <small>Electronically generated. Valid without signature.</small>
+      </div>
+    </div>
+    <fieldset class="comparison-findings">
+      <legend>Compared with your specifications</legend>
+      <p class="selection-hint">Select a finding to see the source.</p>
+      {comparisons.map((row) => (
+        <label class:list={['finding', row.tone]}>
+          <input
+            type="radio"
+            name="certificate-finding"
+            value={row.key}
+            checked={row.key === 'salt'}
+          />
+          <span class="finding-content">
+            <span class="finding-heading">
+              <strong>{row.name}</strong>
+              <span class="finding-status">{row.status}</span>
+            </span>
+            <span class="comparison-values">
+              <span>
+                Expected <b>{row.expected}</b>
+              </span>
+              <span>
+                Certificate <b>{row.found}</b>
+              </span>
+            </span>
+            <span class="finding-detail">{row.detail}</span>
+          </span>
+        </label>
+      ))}
+      <div class="document-checks">
+        <Icon name="check" />
+        <p>
+          Batch, product, dates and authorization details are checked alongside
+          the specifications.
+        </p>
+      </div>
+    </fieldset>
+  </div>
+  <div class="review-footer">
+    <Icon name="users" />
+    <p>Findings stay with the test record. Your QC team reviews the issues.</p>
+  </div>
+</figure>
+
+<style>
+  .certificate-review {
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  figcaption {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 19px 26px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+  figcaption :global(.icon) {
+    color: var(--blue);
+  }
+  figcaption small {
+    margin-left: auto;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .review-workspace {
+    display: grid;
+    grid-template-columns: 1fr 1.15fr;
+  }
+  .supplier-document {
+    margin: 30px;
+    padding: 27px;
+    border: 1px solid var(--line);
+    background: var(--page);
+    align-self: start;
+  }
+  .document-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+  h3 {
+    font-size: 23px;
+    letter-spacing: -0.035em;
+  }
+  .document-product {
+    margin-top: 9px;
+    font-size: 16px;
+  }
+  .document-meta {
+    font-size: 13px;
+    margin: 24px 0;
+    display: grid;
+    gap: 5px;
+  }
+  .document-meta div {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  dt {
+    color: var(--slate);
+  }
+  dd {
+    margin: 0;
+  }
+  .document-columns,
+  .document-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 13px 10px;
+    font-size: 15px;
+  }
+  .document-columns {
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .document-row {
+    border-bottom: 1px solid var(--line);
+  }
+  .document-row strong {
+    font-weight: 600;
+  }
+  .absent-source {
+    margin-top: 16px;
+    padding: 12px;
+    font-size: 13px;
+    border: 1px dashed var(--line);
+  }
+  .document-signoff {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .document-signoff small {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .comparison-findings {
+    min-width: 0;
+    margin: 0;
+    padding: 30px 30px 30px 0;
+    border: 0;
+  }
+  legend {
+    float: left;
+    width: 100%;
+    font: 500 19px var(--heading);
+    letter-spacing: -0.025em;
+    margin-bottom: 6px;
+  }
+  .selection-hint {
+    clear: both;
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  .finding {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px;
+    margin-top: 10px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .finding input {
+    margin: 5px 0 0;
+    accent-color: var(--blue);
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+  }
+  .finding:has(input:checked) {
+    background: var(--surface-muted);
+    border-color: var(--blue);
+  }
+  .finding-content {
+    flex: 1;
+    min-width: 0;
+  }
+  .finding-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 16px;
+  }
+  .finding-heading strong {
+    font-weight: 600;
+  }
+  .finding-status {
+    font-size: 12px;
+    padding: 2px 8px;
+    background: var(--warning-bg);
+    color: var(--warning-text);
+    border-radius: 3px;
+  }
+  .match .finding-status {
+    background: var(--success-bg);
+    color: var(--success-text);
+  }
+  .comparison-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--slate);
+  }
+  .comparison-values b {
+    color: var(--ink);
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  .finding-detail {
+    display: none;
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--slate);
+  }
+  .finding:has(input:checked) .finding-detail {
+    display: block;
+  }
+  .certificate-review:has(input[value='moisture']:checked)
+    [data-source='moisture'] {
+    background: var(--success-bg);
+    box-shadow: inset 3px 0 var(--success-line);
+  }
+  .certificate-review:has(input[value='salt']:checked) [data-source='salt'],
+  .certificate-review:has(input[value='yeast']:checked) [data-source='yeast'] {
+    background: var(--warning-bg);
+    box-shadow: inset 3px 0 var(--warning-line);
+  }
+  .document-checks,
+  .review-footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .document-checks {
+    margin-top: 22px;
+    font-size: 14px;
+  }
+  .document-checks :global(.icon) {
+    color: var(--blue);
+    margin-top: 2px;
+  }
+  .review-footer {
+    padding: 18px 26px;
+    background: var(--mist);
+    border-top: 1px solid var(--line);
+    font-size: 15px;
+  }
+  .review-footer :global(.icon) {
+    color: var(--blue);
+  }
+  @media (max-width: 800px) {
+    .review-workspace {
+      grid-template-columns: 1fr;
+    }
+    figcaption {
+      flex-wrap: wrap;
+      padding: 18px;
+      gap: 8px;
+    }
+    figcaption small {
+      flex-basis: 100%;
+      margin-left: 29px;
+      font-size: 12px;
+    }
+    .supplier-document {
+      margin: 20px;
+      padding: 22px;
+    }
+    .comparison-findings {
+      padding: 0 20px 24px;
+    }
+    .review-footer {
+      padding: 18px;
+    }
+  }
+  @media (max-width: 380px) {
+    .supplier-document {
+      margin: 14px;
+      padding: 17px;
+    }
+    .comparison-findings {
+      padding: 0 14px 20px;
+    }
+    .finding {
+      padding: 12px;
+    }
+  }
+</style>
