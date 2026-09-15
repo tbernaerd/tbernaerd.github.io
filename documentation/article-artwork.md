@@ -1,6 +1,6 @@
 # Article artwork
 
-2026-09-15. Generated editorial covers, installed locally. No publication.
+2026-09-15. Generated editorial covers. Approved for publication on 2026-09-15.
 
 ## Visual direction
 

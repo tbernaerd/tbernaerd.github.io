@@ -1,8 +1,8 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 325 160" width="325" height="160">
 	<style>
-		.s0 { fill: #93b9df; opacity: 0.18 } 
+		.s0 { fill: #93b9df; opacity: 0.18 }
 		.s1 { fill: #e8eaed }
-        .s0 + .s1 { fill: #93b9df } 
+        .s0 + .s1 { fill: #93b9df }
 	</style>
 	<g id="Layer 1">
 		<g id="&lt;Group&gt;">
