@@ -92,11 +92,13 @@ const schema = {
       <aside class="contents">
         <details open>
           <summary>In this article</summary>
-          <nav aria-label="Table of contents">
+          <nav aria-label="Table of contents" data-toc>
             <ol>
               {toc.map((heading) => (
                 <li>
-                  <a href={`#${heading.slug}`}>{heading.text}</a>
+                  <a href={`#${heading.slug}`} data-toc-link={heading.slug}>
+                    {heading.text}
+                  </a>
                 </li>
               ))}
             </ol>
@@ -123,6 +125,75 @@ const schema = {
     </div>
   </article>
 </BaseLayout>
+<script>
+  const nav = document.querySelector('[data-toc]');
+  const headings = Array.from(
+    document.querySelectorAll('.article-body h2[id]')
+  );
+
+  if (nav && headings.length > 0) {
+    const links = new Map(
+      Array.from(nav.querySelectorAll('[data-toc-link]')).map((link) => [
+        link.getAttribute('data-toc-link'),
+        link,
+      ])
+    );
+
+    let currentId = '';
+
+    const setCurrent = (id: string) => {
+      if (id === currentId) return;
+      currentId = id;
+      links.forEach((link, slug) => {
+        if (slug === id) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    // The last heading whose top has scrolled past the reading line is the
+    // section the reader is in; nothing is current above the first heading.
+    // At the page bottom the final heading wins even if it never reaches the
+    // line, so a short closing section can still be marked.
+    const update = () => {
+      const atBottom =
+        Math.ceil(scrollY + innerHeight) >=
+        document.documentElement.scrollHeight - 2;
+
+      if (atBottom) {
+        setCurrent(headings[headings.length - 1].id);
+        return;
+      }
+
+      const line = Math.min(innerHeight * 0.25, 140);
+      let active = '';
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top <= line) {
+          active = heading.id;
+        } else {
+          break;
+        }
+      }
+      setCurrent(active);
+    };
+
+    let queued = false;
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        update();
+      });
+    };
+
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>
 <style>
   .article-shell {
     max-width: 1240px;
@@ -207,10 +278,24 @@ const schema = {
     text-decoration: none;
     line-height: 1.45;
     display: block;
+    position: relative;
   }
   .contents a:hover {
     color: var(--link-hover);
     text-decoration: underline;
+  }
+  .contents a[aria-current='true'] {
+    color: var(--accent-detail, var(--ink));
+    font-weight: 600;
+  }
+  .contents a[aria-current='true']::before {
+    content: '';
+    position: absolute;
+    left: -1rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent-detail, var(--link-hover));
   }
   .article-body {
     min-width: 0;
@@ -267,12 +352,16 @@ const schema = {
   .article-body :global(p) {
     margin: 1.15rem 0;
   }
-  .article-body :global(a) {
+  /* .text-link carries its own border-bottom underline. */
+  .article-body :global(a:not(.text-link)) {
     color: var(--link-hover);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
     text-underline-offset: 3px;
   }
-  .article-body :global(a:hover) {
+  .article-body :global(a:not(.text-link):hover) {
     color: var(--ink);
+    text-decoration-thickness: 2px;
   }
   .article-body :global(strong) {
     color: var(--ink);
