@@ -53,23 +53,21 @@ The secondary benefit to that is that the documentation generated remains availa
 Claude Code is far more than a coding assistant for me. I also use it for writing, research, workflow automation, and as a general-purpose thinking partner. The ability to give it persistent instructions, hook it into external tools via MCPs, and have it operate directly on my filesystem makes it extremely versatile. My technical brain likes project folders with structured text-based information in them. It's why I also use [Obsidian](https://obsidian.md/), for example. And that structure works really well in Claude Code. 
 
 ## Skills for domain knowledge
-Because many of the software platforms and tools I work on interact with or work directly with **Produmex WMS** and **SAP Business One**, knowledge on both the application domain and their technical features is really important. That's why I maintain specific skills that can be called in where needed.
+Because many of the software platforms and tools I work on interact with or work directly with **Produmex WMS** and **SAP Business One**, knowledge on both the application domain and their technical features is really important. That's why I maintain specific skills that can be called in where needed. A few examples:
 
-For example:
-
-SAP Service Layer & Produmex WMS API
+#### SAP Service Layer & Produmex WMS API
 
 Both have the full set of documentation, as well as example code and best practices defined.
 
-Domain meta-skill
+#### Domain meta-skill
 
 Knows how Produmex WMS fits into the SAP Business One domain, and by consequence, knows whether we need SAP's Service Layer or the Produmex API for a given task.
 
-Documentation aggregation
+#### Documentation aggregation
 
 Documentation can be scattered across different resources, so I have defined skills that know about all of those places and know where to find specific bits and pieces.
 
-Workflow customization
+#### Workflow customization
 
 Produmex WMS supports [customization](https://wiki.produmex.name/doku.php?id=implementation:wms:wms_scripting_site) on its scanner-based workflows. I've done many of those, and have embedded all the do's and don'ts into a specific skill.
 
